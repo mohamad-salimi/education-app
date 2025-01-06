@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className="max-w-[500px] my-0 mx-auto min-h-[100vh]">
         <NextAuthProvider>{children}</NextAuthProvider>
       </body>
     </html>
