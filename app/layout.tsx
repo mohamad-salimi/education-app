@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "@fontsource/dm-sans";
 import NextAuthProvider from "@/providers/NextAuthProvider";
 
 export const metadata: Metadata = {

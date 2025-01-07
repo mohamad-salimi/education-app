@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <div>
       Home
-      <Typography variant="body_main" color="primary">
+      <Typography variant="h1" color="primary" component={"p"}>
         test
       </Typography>
     </div>

@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["DM Sans", "sans-serif"],
+      },
       colors: {
         primary: "#5956E9",
         secondary: "#EBEBF9",
