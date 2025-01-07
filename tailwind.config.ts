@@ -23,6 +23,10 @@ export default {
         primary_text: "#292930",
         text: "#8A90A2",
       },
+      boxShadow: {
+        primary: "0px 0px 15px -5px rgba(89, 86, 233, 1)",
+        secondary: "0px 0px 15px -5px rgba(235, 235, 249, 1)",
+      },
     },
   },
   plugins: [],
