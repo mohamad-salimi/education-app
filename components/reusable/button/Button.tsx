@@ -2,6 +2,7 @@ import React, { ButtonHTMLAttributes, FC } from "react";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   format: "primary" | "tonal" | "text";
+  className?: string;
 }
 
 const Button: FC<ButtonProps> = ({
@@ -9,6 +10,7 @@ const Button: FC<ButtonProps> = ({
   type = "button",
   format,
   disabled,
+  className,
   ...rest
 }) => {
   const buttonClasses: Record<ButtonProps["format"], string> = {
@@ -20,9 +22,9 @@ const Button: FC<ButtonProps> = ({
     <button
       className={`${
         buttonClasses[format]
-      } px-3 py-4 rounded-xl min-w-[250px] w-full  ${
-        disabled ? "opacity-50 pointer-events-none" : ""
-      }`}
+      } w-full min-w-[250px] rounded-xl px-3 py-4 ${
+        disabled ? "pointer-events-none opacity-50" : ""
+      } ${className ? className : ""}`}
       disabled={disabled}
       type={type}
       {...rest}

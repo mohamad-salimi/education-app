@@ -1,6 +1,7 @@
 import React from "react";
 import Badge from "../reusable/badge/Badge";
 import Button from "../reusable/button/Button";
+import InputField from "../reusable/inputField/InputField";
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
           <Button format="primary">Show 34 results</Button>
           <Button format="text">Sign In</Button>
         </div>
+        <InputField placeholder="Name" />
       </div>
     </>
   );
