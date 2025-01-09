@@ -6,7 +6,6 @@ import Signin from "@/components/signin/Signin";
 
 const SigninPage = async () => {
   const session = await getServerSession(authOption);
-  console.log(session);
   if (session) redirect("/");
   return <Signin />;
 };

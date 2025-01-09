@@ -1,19 +1,26 @@
 import { NextResponse } from "next/server";
-import { NextApiRequest } from "next";
 import { connectDB } from "@/utils/connectDB";
 import { hashPassword } from "@/utils/auth";
 import User from "@/models/User";
 
-export async function POST(req: NextApiRequest) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export async function POST(req: any) {
   try {
     await connectDB;
 
-    const { email, password } = req.body;
+    const { fullname, email, password } = await req.json();
 
-    if (!email || !password) {
+    if (!fullname || !email || !password) {
       return NextResponse.json(
-        { error: "لطفا اطلاعات معتبر وارد کنید" },
-        { status: 422 }
+        { error: "Please enter valid information." },
+        { status: 422 },
+      );
+    }
+
+    if (password.length < 8) {
+      return NextResponse.json(
+        { error: "Password must be at least 8 characters long" },
+        { status: 422 },
       );
     }
 
@@ -21,28 +28,26 @@ export async function POST(req: NextApiRequest) {
 
     if (exsitingUser) {
       return NextResponse.json(
-        { error: "این حساب کاربری وجود دارد" },
-        { status: 422 }
+        { error: "This account already exists" },
+        { status: 422 },
       );
     }
 
-    const hashedPassword = hashPassword(password);
+    const hashedPassword = await hashPassword(password);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const newUser = await User.create({
+      fullname,
       email,
       password: hashedPassword,
     });
 
-    return NextResponse.json(
-      { message: "حساب کاربری ایجاد شد" },
-      { status: 201 }
-    );
+    return NextResponse.json({ message: "User Created!" }, { status: 201 });
   } catch (err) {
     console.log("Database connection error:", err);
     return NextResponse.json(
-      { error: "مشکلی در سرور رخ داده است" },
-      { status: 500 }
+      { error: "An Error Occurred In Server" },
+      { status: 500 },
     );
   }
 }

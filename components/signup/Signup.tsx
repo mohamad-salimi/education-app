@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,24 +11,52 @@ import Button from "../reusable/button/Button";
 import facebookIcon from "@/public/social-icons/facebook.png";
 import googleIcon from "@/public/social-icons/google.png";
 import macicon from "@/public/social-icons/mac.png";
+import toast, { Toaster } from "react-hot-toast";
 
 interface IFormInput {
-  name: string;
+  fullname: string;
   email: string;
   password: string;
 }
 
 const Signup = () => {
-  const { control, handleSubmit } = useForm<IFormInput>({
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormInput>({
     defaultValues: {
-      name: "",
+      fullname: "",
       email: "",
       password: "",
     },
   });
 
-  const onSubmit: SubmitHandler<IFormInput> = (data) => {
-    console.log(data);
+  const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const onSubmit: SubmitHandler<IFormInput> = async (payload) => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/auth/signup", {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: { "Content-Type": "application/json" },
+      });
+      const data = await res.json();
+
+      setLoading(false);
+
+      if (res.status === 201) {
+        router.push("/");
+      } else {
+        toast.error(data.error);
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err) {
+      setLoading(false);
+      toast.error("An Error Occurred In Server");
+    }
   };
 
   return (
@@ -43,20 +72,23 @@ const Signup = () => {
         className="mt-10 flex flex-col gap-4"
       >
         <Controller
-          name="name"
+          name="fullname"
           control={control}
-          rules={{ required: true }}
+          rules={{ required: "Full Name is required" }}
           render={({ field }) => (
             <>
               <div className="flex flex-col gap-1.5">
-                <label className="text-sm" htmlFor="name">
+                <label className="text-sm" htmlFor="fullname">
                   Full Name
                 </label>
                 <InputField
+                  {...field}
                   placeholder="Full Name"
-                  id="name"
+                  id="fullname"
                   onChange={field.onChange}
                   value={field.value}
+                  error={!!errors?.fullname}
+                  description={errors?.fullname?.message}
                 />
               </div>
             </>
@@ -66,7 +98,7 @@ const Signup = () => {
           name="email"
           control={control}
           rules={{
-            required: true,
+            required: "Email is required",
             pattern: {
               value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
               message: "Invalid email address",
@@ -79,10 +111,13 @@ const Signup = () => {
                   Email Address
                 </label>
                 <InputField
+                  {...field}
                   placeholder="hello@example.c"
                   id="email"
                   onChange={field.onChange}
                   value={field.value}
+                  error={!!errors?.email}
+                  description={errors?.email?.message}
                 />
               </div>
             </>
@@ -91,7 +126,13 @@ const Signup = () => {
         <Controller
           name="password"
           control={control}
-          rules={{ required: true }}
+          rules={{
+            required: "Password is required",
+            minLength: {
+              value: 8,
+              message: "Password must be at least 8 characters long",
+            },
+          }}
           render={({ field }) => (
             <>
               <div className="flex flex-col gap-1.5">
@@ -99,18 +140,26 @@ const Signup = () => {
                   Password
                 </label>
                 <InputField
+                  {...field}
                   placeholder="Password"
                   type="password"
                   id="password"
                   onChange={field.onChange}
                   value={field.value}
+                  error={!!errors?.password}
+                  description={errors?.password?.message}
                 />
               </div>
             </>
           )}
         />
 
-        <Button format="primary" className="mt-4" type="submit">
+        <Button
+          format="primary"
+          className="mt-4"
+          type="submit"
+          disabled={loading}
+        >
           Create an Account
         </Button>
       </form>
@@ -140,6 +189,8 @@ const Signup = () => {
           Sign in here
         </Link>
       </div>
+
+      <Toaster />
     </div>
   );
 };

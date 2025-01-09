@@ -11,6 +11,7 @@ interface TypographyProps {
   color?: TypographyColors;
   component?: React.ElementType;
   children: ReactNode;
+  className?: string;
 }
 
 const Typography: FC<TypographyProps> = ({
@@ -18,9 +19,12 @@ const Typography: FC<TypographyProps> = ({
   color = "primary_text",
   component: Component = "span",
   children,
+  className,
 }) => {
   return (
-    <Component className={`${variantClasses[variant]} ${colorClasses[color]}`}>
+    <Component
+      className={`${variantClasses[variant]} ${colorClasses[color]} ${className ? className : ""}`}
+    >
       {children}
     </Component>
   );
