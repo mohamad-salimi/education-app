@@ -16,7 +16,7 @@ export const authOption: AuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials) {
-          throw new Error("اطلاعات احراز هویت ارسال نشده است");
+          throw new Error("Authentication information not sent");
         }
 
         const { email, password } = credentials;
@@ -25,25 +25,46 @@ export const authOption: AuthOptions = {
           await connectDB;
         } catch (err) {
           console.log("Database connection error:", err);
-          throw new Error('مشکلی در سرور رخ داده است"');
+          throw new Error("An Error Occurred In Server");
         }
 
         if (!email || !password) {
-          throw new Error("لطفا اطلاعات معتبر وارد کنید");
+          throw new Error("Please enter valid information.");
         }
 
         const user = await User.findOne({ email });
 
-        if (!user) throw new Error("لطفا ابتدا حساب کاربری ایجاد کنید");
+        if (!user) throw new Error("Please create an account first");
 
         const isValid = await verifyPassword(password, user.password);
 
-        if (!isValid) throw new Error("ایمیل یا رمز عبور اشتباه است");
+        if (!isValid) throw new Error("Email or password is incorrect");
 
-        return { id: user._id.toString(), name: user.name, email: user.email };
+        return {
+          id: user._id.toString(),
+          name: user.fullname,
+          email: user.email,
+        };
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      session.user.id = token.id as string;
+      return session;
+    },
+  },
+  pages: {
+    signIn: "/auth/signin",
+    signOut: "/auth/signout",
+    error: "/auth/error",
+  },
 };
 
 const handler = NextAuth(authOption);

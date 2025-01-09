@@ -6,7 +6,7 @@ import InputField from "../reusable/inputField/InputField";
 const Home = () => {
   return (
     <>
-      <div className="flex flex-col items-center flex-wrap gap-3 mt-10">
+      <div className="mt-10 flex flex-col flex-wrap items-center gap-3">
         <Badge title="Design" format="primary" />
         <Badge title="Social Sciences" format="info" />
         <Badge title="Sport" format="warning" />

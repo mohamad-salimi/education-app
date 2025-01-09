@@ -33,12 +33,14 @@
       "@/api/*": ["app/api/*"]
     }
   },
+  "types": ["next-auth"],
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/api/auth/[...nextauth]/route.ts"
+    "app/api/auth/[...nextauth]/route.ts",
+    "types/next-auth.d.ts"
   ],
   "exclude": ["node_modules"]
 }

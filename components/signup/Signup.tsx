@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import Image from "next/image";
 import Link from "next/link";
@@ -32,7 +32,6 @@ const Signup = () => {
     },
   });
 
-  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<IFormInput> = async (payload) => {
@@ -48,7 +47,11 @@ const Signup = () => {
       setLoading(false);
 
       if (res.status === 201) {
-        router.push("/");
+        signIn("credentials", {
+          email: payload.email,
+          password: payload.password,
+          callbackUrl: "/",
+        });
       } else {
         toast.error(data.error);
       }
