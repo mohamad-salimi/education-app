@@ -120,7 +120,7 @@ const Signin = () => {
         />
 
         <Link
-          href={"#"}
+          href={"/forget-password"}
           className="flex justify-end text-sm font-semibold text-primary"
         >
           Forgot Password?
