@@ -10,4 +10,10 @@ async function verifyPassword(password: string, hashedPassword: string) {
   return isValid;
 }
 
-export { hashPassword, verifyPassword };
+function generateToken() {
+  const randomPart = Math.random().toString(36).substring(2, 15);
+  const timestampPart = Date.now().toString(36);
+  return `${randomPart}${timestampPart}`;
+}
+
+export { hashPassword, verifyPassword, generateToken };

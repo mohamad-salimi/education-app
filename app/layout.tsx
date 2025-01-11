@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "@fontsource/dm-sans";
 import NextAuthProvider from "@/providers/NextAuthProvider";
+import "dotenv/config";
 
 export const metadata: Metadata = {
   title: "Education App",
@@ -15,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="max-w-[500px] my-0 mx-auto min-h-[100vh]">
+      <body className="mx-auto my-0 min-h-[100vh] max-w-[500px]">
         <NextAuthProvider>{children}</NextAuthProvider>
       </body>
     </html>
