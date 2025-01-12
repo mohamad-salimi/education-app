@@ -74,22 +74,16 @@ const ForgetPassword = () => {
             },
           }}
           render={({ field }) => (
-            <>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm" htmlFor="email">
-                  Email Address
-                </label>
-                <InputField
-                  {...field}
-                  placeholder="hello@example.c"
-                  id="email"
-                  onChange={field.onChange}
-                  value={field.value}
-                  error={!!errors?.email}
-                  description={errors?.email?.message}
-                />
-              </div>
-            </>
+            <InputField
+              {...field}
+              label=" Email Address"
+              placeholder="hello@example.c"
+              id="email"
+              onChange={field.onChange}
+              value={field.value}
+              error={!!errors?.email}
+              description={errors?.email?.message}
+            />
           )}
         />
 

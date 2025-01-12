@@ -3,11 +3,13 @@ import Typography from "../typography/Typography";
 import { GoInfo } from "react-icons/go";
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
   error?: boolean;
   description?: string;
 }
 
 const InputField: FC<InputFieldProps> = ({
+  label,
   id,
   error,
   description,
@@ -17,7 +19,12 @@ const InputField: FC<InputFieldProps> = ({
   ...rest
 }) => {
   return (
-    <>
+    <div className="flex flex-col gap-1.5">
+      {label && (
+        <label className="text-sm" htmlFor={id}>
+          {label}
+        </label>
+      )}
       <input
         type={type}
         disabled={disabled}
@@ -37,7 +44,7 @@ const InputField: FC<InputFieldProps> = ({
           {description}
         </Typography>
       )}
-    </>
+    </div>
   );
 };
 

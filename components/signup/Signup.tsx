@@ -79,22 +79,16 @@ const Signup = () => {
           control={control}
           rules={{ required: "Full Name is required" }}
           render={({ field }) => (
-            <>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm" htmlFor="fullname">
-                  Full Name
-                </label>
-                <InputField
-                  {...field}
-                  placeholder="Full Name"
-                  id="fullname"
-                  onChange={field.onChange}
-                  value={field.value}
-                  error={!!errors?.fullname}
-                  description={errors?.fullname?.message}
-                />
-              </div>
-            </>
+            <InputField
+              {...field}
+              label="Full Name"
+              placeholder="Full Name"
+              id="fullname"
+              onChange={field.onChange}
+              value={field.value}
+              error={!!errors?.fullname}
+              description={errors?.fullname?.message}
+            />
           )}
         />
         <Controller
@@ -108,22 +102,16 @@ const Signup = () => {
             },
           }}
           render={({ field }) => (
-            <>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm" htmlFor="email">
-                  Email Address
-                </label>
-                <InputField
-                  {...field}
-                  placeholder="hello@example.c"
-                  id="email"
-                  onChange={field.onChange}
-                  value={field.value}
-                  error={!!errors?.email}
-                  description={errors?.email?.message}
-                />
-              </div>
-            </>
+            <InputField
+              {...field}
+              label="Email Address"
+              placeholder="hello@example.c"
+              id="email"
+              onChange={field.onChange}
+              value={field.value}
+              error={!!errors?.email}
+              description={errors?.email?.message}
+            />
           )}
         />
         <Controller
@@ -137,23 +125,17 @@ const Signup = () => {
             },
           }}
           render={({ field }) => (
-            <>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm" htmlFor="password">
-                  Password
-                </label>
-                <InputField
-                  {...field}
-                  placeholder="Password"
-                  type="password"
-                  id="password"
-                  onChange={field.onChange}
-                  value={field.value}
-                  error={!!errors?.password}
-                  description={errors?.password?.message}
-                />
-              </div>
-            </>
+            <InputField
+              {...field}
+              label="Password"
+              placeholder="Password"
+              type="password"
+              id="password"
+              onChange={field.onChange}
+              value={field.value}
+              error={!!errors?.password}
+              description={errors?.password?.message}
+            />
           )}
         />
 

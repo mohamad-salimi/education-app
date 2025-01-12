@@ -94,23 +94,17 @@ const ResetPassword = () => {
             },
           }}
           render={({ field }) => (
-            <>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm" htmlFor="password">
-                  Password
-                </label>
-                <InputField
-                  {...field}
-                  placeholder="Password"
-                  type="password"
-                  id="password"
-                  onChange={field.onChange}
-                  value={field.value}
-                  error={!!errors?.password}
-                  description={errors?.password?.message}
-                />
-              </div>
-            </>
+            <InputField
+              {...field}
+              label=" Password"
+              placeholder="Password"
+              type="password"
+              id="password"
+              onChange={field.onChange}
+              value={field.value}
+              error={!!errors?.password}
+              description={errors?.password?.message}
+            />
           )}
         />
 
@@ -125,23 +119,17 @@ const ResetPassword = () => {
             },
           }}
           render={({ field }) => (
-            <>
-              <div className="flex flex-col gap-1.5">
-                <label className="text-sm" htmlFor="rePassword">
-                  Confirm Password
-                </label>
-                <InputField
-                  {...field}
-                  placeholder="Password"
-                  type="password"
-                  id="rePassword"
-                  onChange={field.onChange}
-                  value={field.value}
-                  error={!!errors?.rePassword}
-                  description={errors?.rePassword?.message}
-                />
-              </div>
-            </>
+            <InputField
+              {...field}
+              label="Confirm Password"
+              placeholder="Password"
+              type="password"
+              id="rePassword"
+              onChange={field.onChange}
+              value={field.value}
+              error={!!errors?.rePassword}
+              description={errors?.rePassword?.message}
+            />
           )}
         />
 
