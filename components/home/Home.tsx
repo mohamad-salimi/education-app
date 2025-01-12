@@ -1,6 +1,6 @@
 import React from "react";
 import Badge from "../reusable/badge/Badge";
-import Button from "../reusable/button/Button";
+import BottomNavigation from "../bottomNavigation/BottomNavigation";
 
 const Home = () => {
   return (
@@ -11,11 +11,7 @@ const Home = () => {
         <Badge title="Sport" format="warning" />
         <Badge title="Language Learning" format="error" />
         <Badge title="Medicine" format="success" />
-        <Button format="tonal">Sign In</Button>
-        <div className="flex items-center gap-3">
-          <Button format="primary">Show 34 results</Button>
-          <Button format="text">Sign In</Button>
-        </div>
+        <BottomNavigation />
       </div>
     </>
   );

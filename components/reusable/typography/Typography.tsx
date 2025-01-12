@@ -16,14 +16,14 @@ interface TypographyProps {
 
 const Typography: FC<TypographyProps> = ({
   variant = "body_main",
-  color = "primary_text",
+  color,
   component: Component = "span",
   children,
   className,
 }) => {
   return (
     <Component
-      className={`${variantClasses[variant]} ${colorClasses[color]} ${className ? className : ""}`}
+      className={`${variantClasses[variant]} ${color ? colorClasses[color] : "text-inherit"} ${className ? className : ""}`}
     >
       {children}
     </Component>
