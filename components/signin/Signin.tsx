@@ -132,7 +132,10 @@ const Signin = () => {
           <span className="flex w-full min-w-24 cursor-pointer items-center justify-center rounded-lg border border-gray-200 p-4 hover:bg-background">
             <Image src={facebookIcon} alt="facebook" width={20} height={20} />
           </span>
-          <span className="flex w-full min-w-24 cursor-pointer items-center justify-center rounded-lg border border-gray-200 p-4 hover:bg-background">
+          <span
+            onClick={() => signIn("google", { callbackUrl: "/" })}
+            className="flex w-full min-w-24 cursor-pointer items-center justify-center rounded-lg border border-gray-200 p-4 hover:bg-background"
+          >
             <Image src={googleIcon} alt="google" width={20} height={20} />
           </span>
           <span className="flex w-full min-w-24 cursor-pointer items-center justify-center rounded-lg border border-gray-200 p-4 hover:bg-background">

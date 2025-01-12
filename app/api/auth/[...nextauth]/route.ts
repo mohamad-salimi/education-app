@@ -3,6 +3,7 @@ import { AuthOptions } from "next-auth";
 import { verifyPassword } from "@/utils/auth";
 import { connectDB } from "@/utils/connectDB";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import User from "@/models/User";
 
 export const authOption: AuthOptions = {
@@ -47,6 +48,11 @@ export const authOption: AuthOptions = {
         };
       },
     }),
+
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
   ],
   callbacks: {
     async jwt({ token, user }) {
@@ -59,11 +65,14 @@ export const authOption: AuthOptions = {
       session.user.id = token.id as string;
       return session;
     },
+    async redirect({ url, baseUrl }) {
+      return url.startsWith(baseUrl) ? url : baseUrl;
+    },
   },
   pages: {
-    signIn: "/auth/signin",
-    signOut: "/auth/signout",
-    error: "/auth/error",
+    signIn: "/",
+    signOut: "/signout",
+    error: "/error",
   },
 };
 
