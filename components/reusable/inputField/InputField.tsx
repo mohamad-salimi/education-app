@@ -2,9 +2,8 @@
 
 import React, { FC, InputHTMLAttributes, useState } from "react";
 import Typography from "../typography/Typography";
+import EyeIcon from "@/components/icons/eyeIcon/EyeIcon";
 import { GoInfo } from "react-icons/go";
-import { AiOutlineEye } from "react-icons/ai";
-import { AiOutlineEyeInvisible } from "react-icons/ai";
 
 interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -45,16 +44,18 @@ const InputField: FC<InputFieldProps> = ({
         {type === "password" && (
           <button
             type="button"
-            className="absolute inset-y-0 end-0 z-20 flex cursor-pointer items-center px-3"
+            className="absolute inset-y-0 end-0 z-20 flex cursor-pointer items-center px-3 text-text"
             onClick={toggleVisibility}
             aria-label={isVisible ? "Hide password" : "Show password"}
             aria-pressed={isVisible}
             aria-controls="password"
           >
             {isVisible ? (
-              <AiOutlineEyeInvisible color="#8A90A2" aria-hidden="true" />
+              <div className="relative inline-block after:absolute after:left-[-2px] after:top-1/2 after:h-[1px] after:w-[22px] after:origin-center after:-translate-y-1/2 after:rotate-45 after:transform after:bg-text after:content-['']">
+                <EyeIcon />
+              </div>
             ) : (
-              <AiOutlineEye color="#8A90A2" aria-hidden="true" />
+              <EyeIcon />
             )}
           </button>
         )}

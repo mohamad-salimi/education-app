@@ -12,6 +12,7 @@ interface TypographyProps {
   component?: React.ElementType;
   children: ReactNode;
   className?: string;
+  onClick?: () => void;
 }
 
 const Typography: FC<TypographyProps> = ({
@@ -20,10 +21,12 @@ const Typography: FC<TypographyProps> = ({
   component: Component = "span",
   children,
   className,
+  onClick,
 }) => {
   return (
     <Component
       className={`${variantClasses[variant]} ${color ? colorClasses[color] : "text-inherit"} ${className ? className : ""}`}
+      onClick={onClick}
     >
       {children}
     </Component>
