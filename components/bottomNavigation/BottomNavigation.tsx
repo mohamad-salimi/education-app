@@ -12,7 +12,7 @@ const BottomNavigation = () => {
     "search" | "course" | "library" | "user" | null
   >("search");
   return (
-    <div className="fixed bottom-0 z-40 flex w-full items-center justify-between gap-x-4 bg-white px-5">
+    <div className="fixed bottom-0 z-40 flex w-full max-w-[500px] items-center justify-between gap-x-4 bg-white px-5">
       <button
         onClick={() => setActive("search")}
         className={`${active === "search" ? "border-t border-primary text-primary" : "border-t border-transparent text-text"} flex w-full flex-col items-center gap-y-2 py-2 transition-colors duration-300`}
