@@ -3,8 +3,9 @@
 import React, { FC, useState } from "react";
 import InstructorCard from "../reusable/instructorCard/InstructorCard";
 import SearchInput from "../reusable/searchInput/SearchInput";
-import { CiFilter } from "react-icons/ci";
 import Drawer from "../reusable/drawer/Drawer";
+import InstructorSorting from "./instructorSorting/InstructorSorting";
+import { CiFilter } from "react-icons/ci";
 
 type InstructorTypes = {
   _id: string;
@@ -49,7 +50,7 @@ const Instructors: FC<InstructorsProps> = ({ data }) => {
       </div>
 
       <Drawer open={open} onClose={() => setOpen(false)}>
-        <div className="min-h-[400px] p-6"></div>
+        <InstructorSorting onClose={() => setOpen(false)} />
       </Drawer>
     </>
   );
