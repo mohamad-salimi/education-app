@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "next/link";
 import { StaticImageData } from "next/image";
-import Typography from "@/components/reusable/typography/Typography";
 import CourseCard from "@/components/reusable/courseCard/CourseCard";
-import courseThumbnail from "@/public/placeholder/course-placeholder.png";
+import Typography from "@/components/reusable/typography/Typography";
+import courseThumbnail from "@/public/placeholder/free-course-placeholder.png";
 
 type CoursesType = {
   id: string;
@@ -25,6 +25,7 @@ const courses: CoursesType[] = [
     rate: 5,
     reviewsCount: 98,
     thumbnail: courseThumbnail,
+    isFree: true,
   },
   {
     id: "2",
@@ -44,6 +45,7 @@ const courses: CoursesType[] = [
     rate: 4.8,
     reviewsCount: 398,
     thumbnail: courseThumbnail,
+    isFree: true,
   },
   {
     id: "4",
@@ -53,14 +55,15 @@ const courses: CoursesType[] = [
     rate: 4.8,
     reviewsCount: 354,
     thumbnail: courseThumbnail,
+    isFree: true,
   },
 ];
 
-const TopRated = () => {
+const FreeCourses = () => {
   return (
     <div className="flex flex-col gap-y-6 px-5">
       <div className="flex items-center justify-between">
-        <Typography variant="h1">Top Rated</Typography>
+        <Typography variant="h1">Free courses</Typography>
         <Link href={"/courses"} className="text-base text-text">
           See All
         </Link>
@@ -69,11 +72,10 @@ const TopRated = () => {
         {courses.map((course) => (
           <CourseCard
             key={course.id}
-            type="vertical"
+            type="horizontal"
             id={course.id}
             name={course.name}
             field={course.field}
-            price={course.price}
             rate={course.rate}
             reviewsCount={course.reviewsCount}
             thumbnail={course.thumbnail}
@@ -85,4 +87,4 @@ const TopRated = () => {
   );
 };
 
-export default TopRated;
+export default FreeCourses;

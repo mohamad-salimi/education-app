@@ -5,16 +5,19 @@ import Typography from "../typography/Typography";
 import FilledStarIcon from "@/components/icons/filledStarIcon/FilledStarIcon";
 
 type CourseCardProps = {
+  type: "horizontal" | "vertical";
   id: string;
   thumbnail: string | StaticImageData;
   field: string;
   name: string;
   rate: number;
   reviewsCount: number;
-  price: number;
+  price?: number;
+  isFree?: boolean;
 };
 
 const CourseCard: FC<CourseCardProps> = ({
+  type,
   id,
   name,
   field,
@@ -22,16 +25,26 @@ const CourseCard: FC<CourseCardProps> = ({
   rate,
   reviewsCount,
   thumbnail,
+  isFree = false,
 }) => {
   return (
     <Link
       href={`/courses/${id}`}
-      className="flex w-full max-w-[calc(50%_-_10px)] flex-col gap-y-2.5 rounded-lg border border-divider p-2.5"
+      className={`flex w-full rounded-lg border border-divider ${type === "vertical" ? "max-w-[calc(50%_-_10px)] flex-col gap-y-2.5 p-2.5" : "items-center gap-x-4 p-2"}`}
     >
-      <div>
-        <Image src={thumbnail} alt={name} className="w-full rounded" />
+      <div
+        className={`${type === "horizontal" ? "flex h-full min-w-[150px]" : ""}`}
+      >
+        <Image
+          src={thumbnail}
+          alt={name}
+          className={`w-full rounded object-cover`}
+        />
       </div>
-      <div className="flex flex-col gap-y-1.5">
+
+      <div
+        className={`flex flex-col ${type === "horizontal" ? "gap-y-2 overflow-hidden text-ellipsis whitespace-nowrap" : "gap-y-1.5"}`}
+      >
         <Typography variant="body_small" color="text">
           {field}
         </Typography>
@@ -49,11 +62,22 @@ const CourseCard: FC<CourseCardProps> = ({
           <FilledStarIcon />
           <Typography variant="body_smallest" color="text">
             {reviewsCount}
+            {type === "horizontal" && " reviews"}
           </Typography>
         </div>
-        <Typography variant="body_small" color="primary">
-          ${price}
-        </Typography>
+        {isFree && type === "horizontal" ? (
+          <Typography
+            variant="body_smallest"
+            color="primary"
+            className="w-fit rounded bg-secondary p-2"
+          >
+            Free
+          </Typography>
+        ) : (
+          <Typography variant="body_small" color="primary">
+            {isFree ? "Free" : `$${price}`}
+          </Typography>
+        )}
       </div>
     </Link>
   );

@@ -4,6 +4,7 @@ import Categories from "./categories/Categories";
 import Suggestion from "./suggestion/Suggestion";
 import TopRated from "./topRated/TopRated";
 import Instructors from "./instructors/Instructors";
+import FreeCourses from "./freeCourses/FreeCourses";
 import BottomNavigation from "../bottomNavigation/BottomNavigation";
 
 const Home = () => {
@@ -17,6 +18,7 @@ const Home = () => {
         <Suggestion />
         <TopRated />
         <Instructors />
+        <FreeCourses />
         <BottomNavigation />
       </div>
     </>
