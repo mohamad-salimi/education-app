@@ -27,6 +27,15 @@ export default {
         primary: "0px 0px 15px -5px rgba(89, 86, 233, 1)",
         secondary: "0px 0px 15px -5px rgba(235, 235, 249, 1)",
       },
+      keyframes: {
+        drawer: {
+          "0%": { transform: "translateY(100%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+      },
+      animation: {
+        drawer: "drawer 0.3s",
+      },
     },
   },
   plugins: [],

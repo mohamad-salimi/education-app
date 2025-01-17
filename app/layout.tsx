@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "dotenv/config";
 import "@fontsource/dm-sans";
 import NextAuthProvider from "@/providers/NextAuthProvider";
-import "dotenv/config";
+import BottomNavigation from "@/components/layout/bottomNavigation/BottomNavigation";
 
 export const metadata: Metadata = {
   title: "Education App",
@@ -17,7 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="mx-auto my-0 min-h-[100vh] max-w-[500px]">
-        <NextAuthProvider>{children}</NextAuthProvider>
+        <NextAuthProvider>
+          {children}
+          <BottomNavigation />
+        </NextAuthProvider>
       </body>
     </html>
   );

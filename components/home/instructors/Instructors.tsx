@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Typography from "@/components/reusable/typography/Typography";
-import InstructorCard from "./instructorCard/InstructorCard";
+import InstructorCard from "@/components/reusable/instructorCard/InstructorCard";
 
 type InstructorType = {
   _id: string;
