@@ -7,7 +7,7 @@ interface SearchInputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const SearchInput: FC<SearchInputProps> = ({ id, placeholder, ...rest }) => {
   return (
-    <div className="w-full min-w-[200px] max-w-sm">
+    <div className="w-full max-w-[500px]">
       <div className="relative flex items-center">
         <div className="absolute inset-y-0 start-0 z-20 flex cursor-pointer items-center px-3 text-text">
           <SearchIcon />
