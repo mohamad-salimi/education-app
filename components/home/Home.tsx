@@ -1,6 +1,7 @@
 import React from "react";
 import SearchInput from "../reusable/searchInput/SearchInput";
 import Categories from "./categories/Categories";
+import Suggestion from "./suggestion/Suggestion";
 import TopRated from "./topRated/TopRated";
 import Instructors from "./instructors/Instructors";
 import BottomNavigation from "../bottomNavigation/BottomNavigation";
@@ -13,6 +14,7 @@ const Home = () => {
           <SearchInput placeholder="Search for a course" />
         </div>
         <Categories />
+        <Suggestion />
         <TopRated />
         <Instructors />
         <BottomNavigation />
