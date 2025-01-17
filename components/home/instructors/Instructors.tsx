@@ -30,7 +30,7 @@ const Instructors = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-y-6 px-5">
+    <div className="mt-9 flex flex-col gap-y-6 px-5">
       <div className="flex items-center justify-between">
         <Typography variant="h1">Instructors</Typography>
         <Link href={"/instructors"} className="text-base text-text">

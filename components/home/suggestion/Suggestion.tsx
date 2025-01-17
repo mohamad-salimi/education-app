@@ -56,7 +56,7 @@ const courses: CoursesType[] = [
 
 const Suggestion = () => {
   return (
-    <div className="flex flex-col gap-y-6">
+    <div className="mt-6 flex flex-col gap-y-6">
       <div className="flex items-center justify-between px-5">
         <Typography variant="h1">Just for you</Typography>
         <Link href={"/courses"} className="text-base text-text">

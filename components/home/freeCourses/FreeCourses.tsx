@@ -61,7 +61,7 @@ const courses: CoursesType[] = [
 
 const FreeCourses = () => {
   return (
-    <div className="flex flex-col gap-y-6 px-5">
+    <div className="mt-10 flex flex-col gap-y-6 px-5">
       <div className="flex items-center justify-between">
         <Typography variant="h1">Free courses</Typography>
         <Link href={"/courses"} className="text-base text-text">

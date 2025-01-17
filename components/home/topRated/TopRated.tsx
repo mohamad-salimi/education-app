@@ -58,7 +58,7 @@ const courses: CoursesType[] = [
 
 const TopRated = () => {
   return (
-    <div className="flex flex-col gap-y-6 px-5">
+    <div className="mt-8 flex flex-col gap-y-6 px-5">
       <div className="flex items-center justify-between">
         <Typography variant="h1">Top Rated</Typography>
         <Link href={"/courses"} className="text-base text-text">
