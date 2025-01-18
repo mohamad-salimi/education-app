@@ -22,7 +22,7 @@ const Button: FC<ButtonProps> = ({
     <button
       className={`${
         buttonClasses[format]
-      } w-full min-w-[250px] rounded-xl px-3 py-4 ${
+      } w-full min-w-[250px] rounded-xl px-3 py-3.5 ${
         disabled ? "pointer-events-none opacity-50" : ""
       } ${className ? className : ""}`}
       disabled={disabled}
