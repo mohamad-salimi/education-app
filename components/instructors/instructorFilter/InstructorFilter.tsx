@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Button from "@/components/reusable/button/Button";
 import Typography from "@/components/reusable/typography/Typography";
-import RadioButton from "@/components/reusable/radioButton/RadioButton";
+import Checkbox from "@/components/reusable/checkbox/Checkbox";
 
 type InstructorFilterProps = {
   checked?: boolean;
@@ -10,54 +10,59 @@ type InstructorFilterProps = {
 };
 
 interface IFormInput {
-  category: string;
+  all: boolean;
+  design: boolean;
+  programing: boolean;
+  medicine: boolean;
+  soft_skills: boolean;
 }
+
+type CategoryType =
+  | "all"
+  | "design"
+  | "programing"
+  | "medicine"
+  | "soft_skills";
 
 export const categories = [
   {
     title: "All categories",
-    value: "",
+    value: "all",
   },
   {
     title: "Design",
     value: "design",
   },
   {
-    title: "Social Sciences",
-    value: "social_sciences",
-  },
-  {
-    title: "Sport",
-    value: "sport",
-  },
-  {
-    title: "Language Learning",
-    value: "language_learning",
+    title: "Programing",
+    value: "programing",
   },
   {
     title: "Medicine",
     value: "medicine",
   },
   {
-    title: "Data Science",
-    value: "data_science",
-  },
-  {
-    title: "Psychology",
-    value: "psychology",
+    title: "Soft skills",
+    value: "soft_skills",
   },
 ];
 
 const InstructorFilter: FC<InstructorFilterProps> = ({ onClose }) => {
   const { control, handleSubmit } = useForm<IFormInput>({
     defaultValues: {
-      category: "",
+      all: false,
+      design: false,
+      programing: false,
+      medicine: false,
+      soft_skills: false,
     },
   });
 
-  const onSubmit = () => {
+  const onSubmit = (data: IFormInput) => {
+    console.log(data);
     onClose();
   };
+
   return (
     <form
       className="flex flex-col gap-y-4 p-5"
@@ -69,18 +74,18 @@ const InstructorFilter: FC<InstructorFilterProps> = ({ onClose }) => {
       <div className="flex flex-col gap-y-2">
         {categories.map((item) => (
           <Controller
-            name="category"
+            name={item.value as CategoryType}
             control={control}
             key={item.value}
             render={({ field }) => {
               return (
                 <div className="flex items-center justify-between py-1.5">
-                  <RadioButton
+                  <Checkbox
                     {...field}
                     label={item.title}
                     value={item.value}
                     onChange={field.onChange}
-                    checked={item.value === field.value}
+                    checked={field.value}
                   />
                 </div>
               );
@@ -88,7 +93,11 @@ const InstructorFilter: FC<InstructorFilterProps> = ({ onClose }) => {
           />
         ))}
         <div>
-          <Button format="primary" onClick={onSubmit} className="mt-3">
+          <Button
+            format="primary"
+            onClick={handleSubmit(onSubmit)}
+            className="mt-3"
+          >
             Show results
           </Button>
         </div>
