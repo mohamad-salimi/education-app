@@ -9,6 +9,10 @@ const instructorSchema = new Schema({
     type: String,
     required: true,
   },
+  headline: {
+    type: String,
+    required: true,
+  },
   courses_count: {
     type: Number,
     required: true,

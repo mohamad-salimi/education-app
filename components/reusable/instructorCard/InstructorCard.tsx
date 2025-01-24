@@ -10,7 +10,7 @@ import VerifyIcon from "@/components/icons/verifyIcon/VerifyIcon";
 type InstructorCardProps = {
   id: string;
   name: string;
-  field: string;
+  headline: string;
   studentCount: number;
   courseCount: number;
   rating: number;
@@ -19,7 +19,7 @@ type InstructorCardProps = {
 const InstructorCard: FC<InstructorCardProps> = ({
   id,
   name,
-  field,
+  headline,
   courseCount,
   rating,
   studentCount,
@@ -47,7 +47,7 @@ const InstructorCard: FC<InstructorCardProps> = ({
             {name}
           </Typography>
           <Typography variant="body_small" color="text">
-            {field}
+            {headline}
           </Typography>
         </div>
       </div>

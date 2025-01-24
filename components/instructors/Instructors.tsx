@@ -12,6 +12,7 @@ type InstructorTypes = {
   __v: number;
   name: string;
   field_of_teaching: string;
+  headline: string;
   courses_count: number;
   rating: number;
   student_count: number;
@@ -36,12 +37,12 @@ const Instructors: FC<InstructorsProps> = ({ data }) => {
             <CiFilter size={24} color="inherit" />
           </button>
         </div>
-        {data.map((instructor) => (
+        {data?.map((instructor) => (
           <InstructorCard
             key={instructor._id}
             id={instructor._id}
             name={instructor.name}
-            field={instructor.field_of_teaching}
+            headline={instructor.headline}
             courseCount={instructor.courses_count}
             rating={instructor.rating}
             studentCount={instructor.student_count}

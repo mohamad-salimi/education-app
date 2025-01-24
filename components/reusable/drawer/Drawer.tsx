@@ -25,7 +25,7 @@ const Drawer: FC<DrawerProps> = ({ children, open, onClose, ...rest }) => {
         onClick={handleBackdropClick}
       ></div>
       <div
-        className={`fixed bottom-0 left-0 right-0 z-50 flex max-h-[80vh] w-full animate-drawer flex-col overflow-auto rounded-t-3xl bg-neutral-50 shadow-lg`}
+        className={`fixed bottom-0 left-0 right-0 z-50 flex max-h-[80vh] w-full animate-drawer flex-col overflow-auto rounded-t-3xl bg-white shadow-lg`}
         {...rest}
       >
         <span className="mx-auto my-0 flex h-2 w-[100px] rounded-[0px_0px_200px_200px] bg-primary"></span>

@@ -10,6 +10,7 @@ type InstructorType = {
   __v: number;
   name: string;
   field_of_teaching: string;
+  headline: string;
   courses_count: number;
   rating: number;
   student_count: number;
@@ -44,7 +45,7 @@ const Instructors = () => {
             id={instructor._id}
             name={instructor.name}
             courseCount={instructor.courses_count}
-            field={instructor.field_of_teaching}
+            headline={instructor.headline}
             rating={instructor.rating}
             studentCount={instructor.student_count}
           />

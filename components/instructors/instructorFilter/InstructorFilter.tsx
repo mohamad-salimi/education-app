@@ -3,26 +3,30 @@ import { Controller, useForm } from "react-hook-form";
 import Button from "@/components/reusable/button/Button";
 import Typography from "@/components/reusable/typography/Typography";
 import Checkbox from "@/components/reusable/checkbox/Checkbox";
+import { useRouter, useSearchParams } from "next/navigation";
 
 type InstructorFilterProps = {
-  checked?: boolean;
   onClose: () => void;
 };
 
 interface IFormInput {
   all: boolean;
   design: boolean;
-  programing: boolean;
-  medicine: boolean;
-  soft_skills: boolean;
+  programming: boolean;
+  data: boolean;
+  product: boolean;
+  marketing: boolean;
+  teacher: boolean;
 }
 
 type CategoryType =
   | "all"
   | "design"
-  | "programing"
-  | "medicine"
-  | "soft_skills";
+  | "programming"
+  | "data"
+  | "product"
+  | "marketing"
+  | "teacher";
 
 export const categories = [
   {
@@ -34,32 +38,53 @@ export const categories = [
     value: "design",
   },
   {
-    title: "Programing",
-    value: "programing",
+    title: "Programming",
+    value: "programming",
   },
   {
-    title: "Medicine",
-    value: "medicine",
+    title: "Product",
+    value: "product",
   },
   {
-    title: "Soft skills",
-    value: "soft_skills",
+    title: "Data Science",
+    value: "data",
+  },
+  {
+    title: "Marketing",
+    value: "marketing",
+  },
+  {
+    title: "General Science",
+    value: "teacher",
   },
 ];
 
 const InstructorFilter: FC<InstructorFilterProps> = ({ onClose }) => {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const fields = searchParams.get("field_of_teaching");
+  console.log(fields);
+
   const { control, handleSubmit } = useForm<IFormInput>({
     defaultValues: {
       all: false,
       design: false,
-      programing: false,
-      medicine: false,
-      soft_skills: false,
+      programming: false,
+      data: false,
+      product: false,
+      marketing: false,
+      teacher: false,
     },
   });
 
-  const onSubmit = (data: IFormInput) => {
-    console.log(data);
+  const onSubmit = async (payload: IFormInput) => {
+    const selectedCategories = Object.keys(payload).reduce<string[]>(
+      (acc, key) => (payload[key as keyof IFormInput] ? [...acc, key] : acc),
+      [],
+    );
+    router.push(
+      `/instructors?field_of_teaching=${selectedCategories.join("_")}`,
+    );
     onClose();
   };
 
