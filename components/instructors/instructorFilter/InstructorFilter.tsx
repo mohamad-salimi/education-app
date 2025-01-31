@@ -30,10 +30,6 @@ type CategoryType =
 
 export const categories = [
   {
-    title: "All categories",
-    value: "all",
-  },
-  {
     title: "Design",
     value: "design",
   },
@@ -63,17 +59,15 @@ const InstructorFilter: FC<InstructorFilterProps> = ({ onClose }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const fields = searchParams.get("field_of_teaching");
-  console.log(fields);
 
   const { control, handleSubmit } = useForm<IFormInput>({
     defaultValues: {
-      all: false,
-      design: false,
-      programming: false,
-      data: false,
-      product: false,
-      marketing: false,
-      teacher: false,
+      design: fields?.includes("design"),
+      programming: fields?.includes("programming"),
+      data: fields?.includes("data"),
+      product: fields?.includes("product"),
+      marketing: fields?.includes("marketing"),
+      teacher: fields?.includes("teacher"),
     },
   });
 
@@ -85,6 +79,11 @@ const InstructorFilter: FC<InstructorFilterProps> = ({ onClose }) => {
     router.push(
       `/instructors?field_of_teaching=${selectedCategories.join("_")}`,
     );
+    onClose();
+  };
+
+  const handleResetFilter = () => {
+    router.push(`/instructors`);
     onClose();
   };
 
@@ -117,7 +116,7 @@ const InstructorFilter: FC<InstructorFilterProps> = ({ onClose }) => {
             }}
           />
         ))}
-        <div>
+        <div className="flex flex-col gap-y-2">
           <Button
             format="primary"
             onClick={handleSubmit(onSubmit)}
@@ -125,6 +124,11 @@ const InstructorFilter: FC<InstructorFilterProps> = ({ onClose }) => {
           >
             Show results
           </Button>
+          {!!fields && (
+            <Button onClick={handleResetFilter} format="text">
+              Reset
+            </Button>
+          )}
         </div>
       </div>
     </form>

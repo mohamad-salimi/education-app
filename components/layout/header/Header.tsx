@@ -13,7 +13,7 @@ const Header: FC<HeaderProps> = ({ title }) => {
   const router = useRouter();
   return (
     <div className="sticky top-0 z-10 flex items-center gap-x-[30%] border-b border-divider bg-white px-5 py-2.5 shadow-sm">
-      <button onClick={() => router.back()} className="text-primary">
+      <button onClick={() => router.replace("/")} className="text-primary">
         <ChevronLeftIcon />
       </button>
       <Typography variant="body_big" className="font-semibold">
