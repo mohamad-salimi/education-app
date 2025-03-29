@@ -4,7 +4,6 @@ import "dotenv/config";
 import "@fontsource/dm-sans";
 import NextAuthProvider from "@/providers/NextAuthProvider";
 import BottomNavigation from "@/components/layout/bottomNavigation/BottomNavigation";
-import { getServerSession } from "next-auth";
 
 export const metadata: Metadata = {
   title: "Education App",
@@ -16,14 +15,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const session = await getServerSession();
-
   return (
     <html lang="en">
       <body className="mx-auto my-0 min-h-[100vh] max-w-[500px]">
         <NextAuthProvider>
           {children}
-          <BottomNavigation session={session} />
+          <BottomNavigation />
         </NextAuthProvider>
       </body>
     </html>
