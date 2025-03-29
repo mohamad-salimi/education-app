@@ -2,16 +2,20 @@ import { Schema, models, model } from "mongoose";
 
 const courseSchema = new Schema(
   {
-    title: {
+    name: {
       type: String,
       required: true,
       trim: true,
+    },
+    category: {
+      type: String,
+      required: true,
     },
     description: {
       type: String,
       required: true,
     },
-    category: {
+    language: {
       type: String,
       required: true,
     },
@@ -19,7 +23,7 @@ const courseSchema = new Schema(
       type: Number,
       required: true,
     },
-    rating: {
+    rate: {
       type: Number,
       required: true,
     },
@@ -27,16 +31,30 @@ const courseSchema = new Schema(
       type: Number,
       required: true,
     },
+    skills: {
+      type: Array,
+      required: true,
+    },
     reviews: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Review",
+        ref: "REVIEW",
       },
     ],
+    review_count: {
+      type: Number,
+      required: true,
+    },
     instructors: [
       {
         type: Schema.Types.ObjectId,
         ref: "USER",
+      },
+    ],
+    curriculum: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "CURRICULUM",
       },
     ],
   },

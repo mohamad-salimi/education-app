@@ -28,7 +28,7 @@ export async function POST(req: any) {
     });
 
     return NextResponse.json(
-      { message: "Instructor Created!", data: course },
+      { message: "Course Created!", data: course },
       { status: 201 },
     );
   } catch (err) {
