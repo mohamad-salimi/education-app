@@ -32,9 +32,17 @@ export default {
           "0%": { transform: "translateY(100%)" },
           "100%": { transform: "translateY(0)" },
         },
+        circle: {
+          "0%": { transform: "translateY(0) rotate(0deg)", opacity: "1" },
+          "100%": {
+            transform: "translateY(-1000px) rotate(720deg)",
+            opacity: "0",
+          },
+        },
       },
       animation: {
         drawer: "drawer 0.3s",
+        circle: "circle linear infinite",
       },
     },
   },
