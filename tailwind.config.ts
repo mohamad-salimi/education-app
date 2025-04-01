@@ -39,10 +39,25 @@ export default {
             opacity: "0",
           },
         },
+        slideInLeft: {
+          "0%": { transform: "translateX(-200%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+        slideInBottom: {
+          "0%": { transform: "translateY(2000%)" },
+          "100%": { transform: "translateY(0)" },
+        },
+        slideInRight: {
+          "0%": { transform: "translateX(200%)" },
+          "100%": { transform: "translateX(0)" },
+        },
       },
       animation: {
         drawer: "drawer 0.3s",
         circle: "circle linear infinite",
+        slideInLeft: "slideInLeft 2s ease-out forwards",
+        slideInRight: "slideInRight 2s ease-out forwards",
+        slideInBottom: "slideInBottom 2s ease-out forwards",
       },
     },
   },

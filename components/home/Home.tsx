@@ -5,6 +5,7 @@ import Suggestion from "./suggestion/Suggestion";
 import TopRated from "./topRated/TopRated";
 import Instructors from "./instructors/Instructors";
 import FreeCourses from "./freeCourses/FreeCourses";
+import BottomNavigation from "../layout/bottomNavigation/BottomNavigation";
 
 const Home = () => {
   return (
@@ -18,6 +19,7 @@ const Home = () => {
         <TopRated />
         <Instructors />
         <FreeCourses />
+        <BottomNavigation />
       </div>
     </>
   );

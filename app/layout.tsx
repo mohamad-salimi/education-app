@@ -3,7 +3,6 @@ import "./globals.css";
 import "dotenv/config";
 import "@fontsource/dm-sans";
 import NextAuthProvider from "@/providers/NextAuthProvider";
-import BottomNavigation from "@/components/layout/bottomNavigation/BottomNavigation";
 
 export const metadata: Metadata = {
   title: "Education App",
@@ -18,10 +17,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className="mx-auto my-0 min-h-[100vh] max-w-[500px]">
-        <NextAuthProvider>
-          {children}
-          <BottomNavigation />
-        </NextAuthProvider>
+        <NextAuthProvider>{children}</NextAuthProvider>
       </body>
     </html>
   );
