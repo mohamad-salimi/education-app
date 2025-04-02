@@ -1,8 +1,12 @@
-import React from "react";
-import Button from "../reusable/button/Button";
-import CreativeArrow from "../icons/creativeArrow/CreativeArrow";
+"use client";
 
-const AddCourse = () => {
+import React from "react";
+import { useRouter } from "next/navigation";
+import Button from "@/components/reusable/button/Button";
+import CreativeArrow from "@/components/icons/creativeArrow/CreativeArrow";
+
+const Intro = () => {
+  const router = useRouter();
   return (
     <div className="flex flex-col gap-y-4 overflow-hidden p-5">
       <div className="flex flex-1 flex-col gap-y-3">
@@ -31,11 +35,15 @@ const AddCourse = () => {
       <span className="flex animate-slideInBottom justify-end text-indigo-500">
         <CreativeArrow />
       </span>
-      <Button className="animate-slideInBottom" format="primary">
+      <Button
+        className="animate-slideInBottom"
+        format="primary"
+        onClick={() => router.push("/add-course/registration")}
+      >
         Start As Creator
       </Button>
     </div>
   );
 };
 
-export default AddCourse;
+export default Intro;

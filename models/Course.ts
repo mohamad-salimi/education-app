@@ -51,12 +51,12 @@ const courseSchema = new Schema(
         ref: "USER",
       },
     ],
-    curriculum: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "CURRICULUM",
-      },
-    ],
+    // curriculum: [
+    //   {
+    //     type: Schema.Types.ObjectId,
+    //     ref: "CURRICULUM",
+    //   },
+    // ],
   },
   { timestamps: true },
 );
