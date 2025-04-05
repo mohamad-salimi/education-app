@@ -9,6 +9,7 @@ interface InputFieldProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   error?: boolean;
   description?: string;
+  postfix?: string;
 }
 
 const InputField: FC<InputFieldProps> = ({
@@ -19,6 +20,7 @@ const InputField: FC<InputFieldProps> = ({
   disabled,
   type,
   placeholder,
+  postfix,
   ...rest
 }) => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
@@ -58,6 +60,14 @@ const InputField: FC<InputFieldProps> = ({
               <EyeIcon />
             )}
           </button>
+        )}
+        {postfix && (
+          <Typography
+            className="absolute inset-y-0 end-0 right-2 z-20 flex items-center text-text"
+            variant="body_smallest"
+          >
+            {postfix}
+          </Typography>
         )}
       </div>
       {(error || description) && (

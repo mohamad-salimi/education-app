@@ -1,6 +1,12 @@
 "use client";
 
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, {
+  FC,
+  InputHTMLAttributes,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 type Options = {
@@ -8,12 +14,12 @@ type Options = {
   title: string;
 };
 
-interface SelectOptionProps {
-  label: string;
-  placeholder: string;
-  id: string;
+interface SelectOptionProps extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
+  placeholder?: string;
+  id?: string;
   options: Options[];
-  onChange: (value: string | number) => void;
+  onChange: VoidFunction;
 }
 
 const SelectOption: FC<SelectOptionProps> = ({
@@ -29,7 +35,7 @@ const SelectOption: FC<SelectOptionProps> = ({
 
   const handleSelect = (value: string) => {
     setSelected(value);
-    onChange(value);
+    onChange();
     setIsOpen(false);
   };
 
@@ -48,7 +54,11 @@ const SelectOption: FC<SelectOptionProps> = ({
 
   return (
     <div className="relative flex flex-col gap-y-1.5" ref={selectRef}>
-      <label htmlFor={id} className="text-sm text-gray-900">
+      <label
+        htmlFor={id}
+        className="text-sm"
+        onClick={() => setIsOpen(!isOpen)}
+      >
         {label}
       </label>
 
