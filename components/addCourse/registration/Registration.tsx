@@ -1,11 +1,19 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import InputField from "@/components/reusable/inputField/InputField";
 import SelectOption from "@/components/reusable/selectOption/SelectOption";
 import TextArea from "@/components/reusable/textArea/TextArea";
 import Button from "@/components/reusable/button/Button";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
+import {
+  useForm,
+  Controller,
+  SubmitHandler,
+  useFieldArray,
+} from "react-hook-form";
+import { GoPlus } from "react-icons/go";
+import { IoIosClose } from "react-icons/io";
 
 const categories = [
   {
@@ -69,15 +77,20 @@ interface RegistrationFormInput {
   category: string;
   language: string;
   level: string;
-  skills: string;
+  skills: { value: string }[];
+  skillInput?: string; //  For temporary entry maintenance only
   price: string;
   description: string;
 }
 
 const Registration = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const {
     control,
     handleSubmit,
+    register,
+    setValue,
+    getValues,
     formState: { errors },
   } = useForm<RegistrationFormInput>({
     defaultValues: {
@@ -85,15 +98,46 @@ const Registration = () => {
       category: "",
       language: "",
       level: "",
-      skills: "",
+      skills: [],
+      skillInput: "",
       price: "",
       description: "",
     },
   });
 
-  const onSubmit: SubmitHandler<RegistrationFormInput> = (data) => {
-    console.log(data);
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "skills",
+  });
+
+  const handleAddSkill = () => {
+    const input = (getValues("skillInput") as string).trim();
+    const existing = fields.map((f) => f.value);
+    if (input && !existing.includes(input)) {
+      append({ value: input });
+      setValue("skillInput", "");
+    }
   };
+
+  const onSubmit: SubmitHandler<RegistrationFormInput> = async (payload) => {
+    const finalPayload = { ...payload };
+    delete finalPayload.skillInput;
+
+    setLoading(true);
+    const res = await fetch("/api/course", {
+      method: "POST",
+      body: JSON.stringify(finalPayload),
+      headers: { "Content-Type": "application/json" },
+    });
+    const data = await res.json();
+    setLoading(false);
+    if (data.error) {
+      toast.error(data.error);
+    } else {
+      toast.success(data.message);
+    }
+  };
+
   return (
     <>
       <form
@@ -185,18 +229,63 @@ const Registration = () => {
           name="skills"
           control={control}
           rules={{
-            required: "Skills is required",
+            validate: (value) =>
+              value.length > 0 || "Please add at least one skill",
           }}
-          render={({ field: { value, onChange } }) => (
-            <InputField
-              label="Skills"
-              placeholder="Skill you will teach"
-              id="skills"
-              onChange={onChange}
-              value={value}
-              error={!!errors?.skills}
-              description={errors?.skills?.message}
-            />
+          render={() => (
+            <div className="flex flex-col gap-2">
+              <label htmlFor="skills" className="text-sm">
+                Skills
+              </label>
+
+              <div className="flex items-start gap-x-3 gap-y-1.5">
+                <Controller
+                  name="skillInput"
+                  control={control}
+                  render={({ field }) => (
+                    <div className="flex-auto">
+                      <InputField
+                        {...field}
+                        error={!!errors?.skills}
+                        description={errors?.skills?.root?.message}
+                        placeholder="Skill you will teach"
+                      />
+                    </div>
+                  )}
+                />
+                <button
+                  type="button"
+                  onClick={handleAddSkill}
+                  className="flex h-12 items-center justify-center rounded-lg border border-secondary bg-background p-2"
+                >
+                  <GoPlus size={18} />
+                </button>
+              </div>
+
+              {fields?.length > 0 && (
+                <div className="flex flex-wrap gap-2">
+                  {fields.map((field, index) => (
+                    <div
+                      key={field.id}
+                      className="flex items-center gap-1 rounded-full bg-indigo-50 px-3 py-1.5 text-sm text-indigo-600"
+                    >
+                      <input
+                        type="hidden"
+                        {...register(`skills.${index}.value` as const)}
+                      />
+                      {field.value}
+                      <button
+                        type="button"
+                        onClick={() => remove(index)}
+                        className="text-indigo-600 hover:text-indigo-800"
+                      >
+                        <IoIosClose size={24} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
           )}
         />
 
@@ -242,11 +331,19 @@ const Registration = () => {
           }}
         />
       </form>
+
       <div className="sticky bottom-0 left-0 flex w-full items-center justify-center border-t border-t-secondary bg-white px-5 py-4 shadow-sm">
-        <Button format="primary" type="submit" onClick={handleSubmit(onSubmit)}>
+        <Button
+          disabled={loading}
+          format="primary"
+          type="submit"
+          onClick={handleSubmit(onSubmit)}
+        >
           Submit
         </Button>
       </div>
+
+      <Toaster />
     </>
   );
 };

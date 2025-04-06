@@ -1,15 +1,31 @@
 import { Schema, models, model } from "mongoose";
 
+const SkillSchema = new Schema({
+  value: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+});
+
 const courseSchema = new Schema(
   {
     name: {
       type: String,
       required: true,
-      trim: true,
     },
     category: {
       type: String,
       required: true,
+      enum: [
+        "design",
+        "social_sciences",
+        "sport",
+        "language_learning",
+        "medicine",
+        "data_science",
+        "psychology",
+      ],
     },
     description: {
       type: String,
@@ -18,39 +34,54 @@ const courseSchema = new Schema(
     language: {
       type: String,
       required: true,
+      enum: ["english", "persian"],
     },
     price: {
       type: Number,
       required: true,
+      min: 0,
+    },
+    level: {
+      type: String,
+      required: true,
+      enum: ["beginner", "intermediate", "advanced"],
     },
     rate: {
       type: Number,
-      required: true,
+      default: 0,
     },
     student_count: {
       type: Number,
-      required: true,
+      default: 0,
+      min: 0,
     },
     skills: {
-      type: Array,
+      type: [SkillSchema],
       required: true,
+      validate: {
+        validator: (val: string[]) => val.length > 0,
+        message: "At least one skill is required.",
+      },
     },
     reviews: [
       {
         type: Schema.Types.ObjectId,
-        ref: "REVIEW",
+        ref: "Review",
       },
     ],
     review_count: {
       type: Number,
-      required: true,
+      default: 0,
+      min: 0,
     },
-    instructors: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "USER",
-      },
-    ],
+    instructor: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+    published: {
+      type: Boolean,
+      default: false,
+    },
     // curriculum: [
     //   {
     //     type: Schema.Types.ObjectId,

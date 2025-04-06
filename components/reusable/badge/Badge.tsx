@@ -16,7 +16,7 @@ const Badge: FC<BadgeProps> = ({ title, format }) => {
 
   return (
     <span
-      className={`${badgeClasses[format]} px-3.5 py-2 flex items-center justify-center rounded-[30px] w-fit min-w-[70px] `}
+      className={`${badgeClasses[format]} flex w-fit min-w-[70px] items-center justify-center rounded-[30px] px-3.5 py-2`}
     >
       {title}
     </span>
