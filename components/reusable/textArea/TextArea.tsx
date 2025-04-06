@@ -8,6 +8,7 @@ interface TextAreaProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder?: string;
   error?: boolean;
   description?: string;
+  onChange?: VoidFunction;
 }
 
 const TextArea: FC<TextAreaProps> = ({
@@ -16,6 +17,7 @@ const TextArea: FC<TextAreaProps> = ({
   id,
   error,
   description,
+  onChange,
 }) => {
   return (
     <div className="flex flex-col gap-1.5">
@@ -27,6 +29,7 @@ const TextArea: FC<TextAreaProps> = ({
       <textarea
         rows={5}
         id={id}
+        onChange={onChange}
         placeholder={placeholder}
         className={`min-h-unset block h-auto w-full appearance-none rounded-lg border ${error ? "border-red-500" : "border-secondary"} bg-white bg-clip-padding px-3 py-2 text-primary_text outline-none transition-all ease-in-out placeholder:text-sm placeholder:text-text hover:border-primary focus:border-primary focus:bg-background focus:outline-none`}
       ></textarea>

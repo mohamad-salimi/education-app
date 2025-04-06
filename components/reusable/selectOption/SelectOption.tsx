@@ -1,41 +1,43 @@
 "use client";
 
-import React, {
-  FC,
-  InputHTMLAttributes,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
+import Typography from "../typography/Typography";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { GoInfo } from "react-icons/go";
 
 type Options = {
   value: string | number;
   title: string;
 };
 
-interface SelectOptionProps extends InputHTMLAttributes<HTMLInputElement> {
+interface SelectOptionProps {
+  options: Options[];
   label?: string;
   placeholder?: string;
   id?: string;
-  options: Options[];
-  onChange: VoidFunction;
+  error?: boolean;
+  description?: string;
+  onChange: (value: string) => void;
+  value: string;
 }
 
 const SelectOption: FC<SelectOptionProps> = ({
+  options,
   label,
   id,
   placeholder,
-  options,
+  error,
+  description,
+  value,
   onChange,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<string | null>(value);
   const selectRef = useRef<HTMLDivElement>(null);
 
   const handleSelect = (value: string) => {
     setSelected(value);
-    onChange();
+    onChange(value);
     setIsOpen(false);
   };
 
@@ -63,7 +65,7 @@ const SelectOption: FC<SelectOptionProps> = ({
       </label>
 
       <div
-        className={`flex h-12 cursor-pointer items-center justify-between rounded-lg border px-2 py-3 transition-all duration-300 ease-in-out ${isOpen ? "border-primary bg-background" : "border-secondary"}`}
+        className={`flex h-12 cursor-pointer items-center justify-between rounded-lg border px-2 py-3 transition-all duration-300 ease-in-out ${isOpen ? "border-primary bg-background" : error ? "border-red-500" : "border-secondary"} `}
         onClick={() => setIsOpen(!isOpen)}
       >
         {selected
@@ -73,6 +75,17 @@ const SelectOption: FC<SelectOptionProps> = ({
           <MdKeyboardArrowDown size={18} />
         </span>
       </div>
+
+      {(error || description) && (
+        <Typography
+          variant="body_smallest"
+          color={error ? "red-500" : "text"}
+          className="flex items-center gap-1"
+        >
+          <GoInfo />
+          {description}
+        </Typography>
+      )}
 
       <div
         className={`absolute top-20 z-10 mt-1 w-full overflow-auto rounded-lg border border-secondary bg-white shadow-sm transition-all duration-300 ease-in-out ${isOpen ? "max-h-60 opacity-100" : "max-h-0 opacity-0"}`}
