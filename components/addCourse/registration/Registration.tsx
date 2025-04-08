@@ -91,6 +91,7 @@ const Registration = () => {
     register,
     setValue,
     getValues,
+    watch,
     formState: { errors },
   } = useForm<RegistrationFormInput>({
     defaultValues: {
@@ -109,6 +110,9 @@ const Registration = () => {
     control,
     name: "skills",
   });
+
+  const skillInputValue = watch("skillInput");
+  const isTyping = !!skillInputValue;
 
   const handleAddSkill = () => {
     const input = (getValues("skillInput") as string).trim();
@@ -256,7 +260,9 @@ const Registration = () => {
                 <button
                   type="button"
                   onClick={handleAddSkill}
-                  className="flex h-12 items-center justify-center rounded-lg border border-secondary bg-background p-2"
+                  className={`flex h-12 items-center justify-center rounded-lg border border-secondary p-2 ${
+                    isTyping ? "bg-background" : "bg-white"
+                  }`}
                 >
                   <GoPlus size={18} />
                 </button>

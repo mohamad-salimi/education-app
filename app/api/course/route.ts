@@ -6,6 +6,22 @@ import { Types } from "mongoose";
 import Course from "@/models/Course";
 import User from "@/models/User";
 
+export async function GET() {
+  await connectDB;
+  try {
+    const Courses = await Course.find()
+      .select("-__v")
+      .populate("instructor", "fullname");
+    return NextResponse.json({ data: Courses }, { status: 200 });
+  } catch (err) {
+    console.log("Database connection error:", err);
+    return NextResponse.json(
+      { error: "An Error Occurred In Server" },
+      { status: 500 },
+    );
+  }
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function POST(req: any) {
   await connectDB;

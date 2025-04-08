@@ -8,8 +8,8 @@ import CreativeArrow from "@/components/icons/creativeArrow/CreativeArrow";
 const Intro = () => {
   const router = useRouter();
   return (
-    <div className="flex flex-col gap-y-4 overflow-hidden p-5">
-      <div className="flex flex-1 flex-col gap-y-3">
+    <div className="flex flex-1 flex-col gap-y-4 overflow-hidden p-5">
+      <div className="flex flex-col gap-y-3">
         <div className="flex flex-col overflow-hidden py-2 text-6xl font-bold">
           <span
             className={`animate-slideInLeft bg-gradient-to-r from-indigo-800 to-indigo-600 bg-clip-text text-transparent`}
@@ -32,7 +32,7 @@ const Intro = () => {
           others, expand your reach, and start your journey as a creator today!
         </p>
       </div>
-      <span className="flex animate-slideInBottom justify-end text-indigo-500">
+      <span className="flex flex-1 animate-slideInBottom justify-end text-indigo-500">
         <CreativeArrow />
       </span>
       <Button

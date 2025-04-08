@@ -16,7 +16,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="mx-auto my-0 min-h-[100vh] max-w-[500px]">
+      <body className="mx-auto my-0 flex min-h-[100vh] max-w-[500px] flex-col">
         <NextAuthProvider>{children}</NextAuthProvider>
       </body>
     </html>

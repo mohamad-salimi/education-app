@@ -45,7 +45,7 @@ const CourseCard: FC<CourseCardProps> = ({
       <div
         className={`flex flex-col ${type === "horizontal" ? "gap-y-2 overflow-hidden text-ellipsis whitespace-nowrap" : "gap-y-1.5"}`}
       >
-        <Typography variant="body_small" color="text">
+        <Typography variant="body_small" className="capitalize" color="text">
           {field}
         </Typography>
         <Typography
