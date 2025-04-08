@@ -33,12 +33,14 @@ const CourseCard: FC<CourseCardProps> = ({
       className={`flex w-full rounded-lg border border-divider ${type === "vertical" ? "max-w-[calc(50%_-_10px)] flex-col gap-y-2.5 p-2.5" : "items-center gap-x-4 p-2"}`}
     >
       <div
-        className={`${type === "horizontal" ? "flex h-full min-w-[150px]" : ""}`}
+        className={`${type === "horizontal" ? "flex h-[120px] min-w-[150px]" : "h-[125px]"}`}
       >
         <Image
           src={thumbnail}
           alt={name}
-          className={`w-full rounded object-cover`}
+          width={type === "horizontal" ? 156 : 148}
+          height={type === "horizontal" ? 120 : 135}
+          className={`h-full rounded object-cover`}
         />
       </div>
 

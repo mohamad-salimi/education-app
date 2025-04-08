@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import CourseCard from "../reusable/courseCard/CourseCard";
-import coursePlaceholder from "@/public/placeholder/course-placeholder.png";
+import SearchInput from "../reusable/searchInput/SearchInput";
+import coursePlaceholder from "@/public/placeholder/free-course-placeholder.png";
 import { CourseType } from "./types/Course.types";
 
 interface CoursesProps {
@@ -9,7 +10,10 @@ interface CoursesProps {
 
 const Courses: FC<CoursesProps> = ({ data }) => {
   return (
-    <div className="flex flex-col p-5">
+    <div className="flex flex-col gap-y-4 p-5">
+      <div className="sticky top-0 z-[100] bg-white">
+        <SearchInput placeholder="Search for a course" />
+      </div>
       {data?.map((course) => (
         <CourseCard
           type="horizontal"
