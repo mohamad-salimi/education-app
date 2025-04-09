@@ -3,9 +3,9 @@ export interface CourseType {
   name: string;
   category: string;
   description: string;
-  language: string;
+  language: "persian" | "english";
   price: number;
-  level: string;
+  level: "beginner" | "intermediate" | "advanced";
   rate: number;
   student_count: number;
   skills: Skill[];

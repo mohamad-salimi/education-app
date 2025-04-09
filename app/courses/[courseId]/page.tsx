@@ -1,17 +1,15 @@
-import React from "react";
+import React, { FC } from "react";
 import Course from "@/components/course/Course";
-import { headers } from "next/headers";
 
-const CoursePage = async () => {
-  const headersList = headers();
-  const fullUrl =
-    (await headersList).get("x-url") ||
-    (await headersList).get("referer") ||
-    "";
+interface CoursePageProps {
+  params: {
+    courseId: string;
+  };
+}
 
-  const pathname = fullUrl.split("courses/")[1];
-
-  const res = await fetch(`http://localhost:3000/api/course/${pathname}`);
+const CoursePage: FC<CoursePageProps> = async ({ params }) => {
+  const { courseId } = params;
+  const res = await fetch(`http://localhost:3000/api/course/${courseId}`);
   const data = await res.json();
 
   return <Course {...data} />;
