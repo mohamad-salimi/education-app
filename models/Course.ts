@@ -19,6 +19,7 @@ const courseSchema = new Schema(
       required: true,
       enum: [
         "design",
+        "programming",
         "social_sciences",
         "sport",
         "language_learning",

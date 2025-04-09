@@ -10,9 +10,10 @@ interface Params {
 
 export async function GET(req: Request, { params }: Params) {
   await connectDB;
+  const { courseId } = await params;
 
   try {
-    const course = await Course.findById(params.courseId)
+    const course = await Course.findById(courseId)
       .select("-__v")
       .populate("instructor", "fullname");
 

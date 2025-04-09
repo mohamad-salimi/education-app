@@ -54,7 +54,7 @@ const InstructorCard: FC<InstructorCardProps> = ({
 
       <div className="flex items-center justify-between rounded bg-background px-6 py-3">
         <span className="flex gap-x-2 text-primary">
-          <TwoUserIcon />
+          <TwoUserIcon size="small" />
           <Typography variant="body_smallest" color="primary_text">
             +{studentCount}
           </Typography>
@@ -67,7 +67,7 @@ const InstructorCard: FC<InstructorCardProps> = ({
           >{`${courseCount} courses`}</Typography>
         </span>
         <span className="flex gap-x-2 text-primary">
-          <StarIcon />
+          <StarIcon size="small" />
           <Typography
             variant="body_smallest"
             color="primary_text"

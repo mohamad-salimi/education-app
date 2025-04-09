@@ -21,6 +21,10 @@ const categories = [
     value: "design",
   },
   {
+    title: "Programming",
+    value: "programming",
+  },
+  {
     title: "Social Sciences",
     value: "social_sciences",
   },

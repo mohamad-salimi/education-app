@@ -32,20 +32,14 @@ const CourseCard: FC<CourseCardProps> = ({
       href={`/courses/${id}`}
       className={`flex w-full rounded-lg border border-divider ${type === "vertical" ? "max-w-[calc(50%_-_10px)] flex-col gap-y-2.5 p-2.5" : "items-center gap-x-4 p-2"}`}
     >
-      <div
-        className={`${type === "horizontal" ? "flex h-[120px] min-w-[150px]" : "h-[125px]"}`}
-      >
-        <Image
-          src={thumbnail}
-          alt={name}
-          width={type === "horizontal" ? 156 : 148}
-          height={type === "horizontal" ? 120 : 135}
-          className={`h-full rounded object-cover`}
-        />
-      </div>
+      <Image
+        src={thumbnail}
+        alt={name}
+        className={`${type === "horizontal" ? "h-[120px] flex-1" : "h-[135px]"} w-full rounded object-cover`}
+      />
 
       <div
-        className={`flex flex-col ${type === "horizontal" ? "gap-y-2 overflow-hidden text-ellipsis whitespace-nowrap" : "gap-y-1.5"}`}
+        className={`flex flex-col ${type === "horizontal" ? "flex-1 gap-y-2 overflow-hidden text-ellipsis whitespace-nowrap" : "gap-y-1.5"}`}
       >
         <Typography variant="body_small" className="capitalize" color="text">
           {field}

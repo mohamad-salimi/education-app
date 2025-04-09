@@ -8,7 +8,7 @@ interface CoursePageProps {
 }
 
 const CoursePage: FC<CoursePageProps> = async ({ params }) => {
-  const { courseId } = params;
+  const { courseId } = await params;
   const res = await fetch(`http://localhost:3000/api/course/${courseId}`);
   const data = await res.json();
 

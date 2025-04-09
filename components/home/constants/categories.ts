@@ -11,6 +11,11 @@ export const categories: Categories[] = [
     query: "design",
   },
   {
+    title: "Programming",
+    type: "warning",
+    query: "programming",
+  },
+  {
     title: "Social Sciences",
     type: "info",
     query: "social_sciences",
