@@ -4,10 +4,14 @@ const userSchema = new Schema({
   fullname: {
     type: String,
     required: true,
+    trim: true,
   },
   email: {
     type: String,
     required: true,
+    unique: true,
+    lowercase: true,
+    trim: true,
   },
   password: {
     type: String,
@@ -15,7 +19,27 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    default: "USER",
+    enum: ["STUDENT", "INSTRUCTOR", "ADMIN"],
+    default: "STUDENT",
+  },
+  phone: {
+    type: String,
+    default: null,
+  },
+  gender: {
+    type: String,
+    enum: ["MALE", "FEMALE", "OTHER"],
+    default: null,
+  },
+  bio: {
+    type: String,
+    default: null,
+    maxlength: 1000,
+  },
+  headline: {
+    type: String,
+    default: null,
+    maxlength: 100,
   },
   createdAt: {
     type: Date,

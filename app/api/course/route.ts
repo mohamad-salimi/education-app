@@ -68,6 +68,11 @@ export async function POST(req: any) {
       reviews: [],
     });
 
+    if (user.role === "STUDENT") {
+      user.role = "INSTRUCTOR";
+      await user.save();
+    }
+
     return NextResponse.json({ message: "Course Created!" }, { status: 201 });
   } catch (err) {
     console.log("Database connection error:", err);

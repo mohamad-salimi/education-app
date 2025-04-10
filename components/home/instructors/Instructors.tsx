@@ -39,17 +39,19 @@ const Instructors = () => {
         </Link>
       </div>
       <div className="flex flex-col gap-y-4">
-        {instructors.slice(0, 3).map((instructor) => (
-          <InstructorCard
-            key={instructor._id}
-            id={instructor._id}
-            name={instructor.name}
-            courseCount={instructor.courses_count}
-            headline={instructor.headline}
-            rating={instructor.rating}
-            studentCount={instructor.student_count}
-          />
-        ))}
+        {instructors
+          ?.slice(0, 3)
+          .map((instructor) => (
+            <InstructorCard
+              key={instructor._id}
+              id={instructor._id}
+              name={instructor.name}
+              courseCount={instructor.courses_count}
+              headline={instructor.headline}
+              rating={instructor.rating}
+              studentCount={instructor.student_count}
+            />
+          ))}
       </div>
     </div>
   );
