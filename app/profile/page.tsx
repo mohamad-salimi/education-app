@@ -6,9 +6,12 @@ import { redirect } from "next/navigation";
 
 const ProfilePage = async () => {
   const session = await getServerSession(authOption);
-  if (!session) redirect("/");
+  if (!session || !session.user) redirect("/");
 
-  return <Profile />;
+  const res = await fetch(`http://localhost:3000/api/profile`);
+  const data = await res.json();
+
+  return <Profile {...data} />;
 };
 
 export default ProfilePage;
