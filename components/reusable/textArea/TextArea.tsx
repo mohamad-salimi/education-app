@@ -33,7 +33,7 @@ const TextArea: FC<TextAreaProps> = ({
         id={id}
         onChange={onChange}
         placeholder={placeholder}
-        className={`min-h-unset block h-auto w-full appearance-none rounded-xl border ${error ? "border-red-500" : "border-secondary"} bg-white bg-clip-padding px-3 py-2 text-primary_text outline-none transition-all ease-in-out placeholder:text-sm placeholder:text-text hover:border-primary focus:border-primary focus:bg-background focus:outline-none`}
+        className={`min-h-unset block h-auto w-full appearance-none rounded-xl border text-sm ${error ? "border-red-500" : "border-secondary"} bg-white bg-clip-padding px-3 py-2 text-primary_text outline-none transition-all ease-in-out placeholder:text-sm placeholder:text-text hover:border-primary focus:border-primary focus:bg-background focus:outline-none`}
       ></textarea>
       {(error || description) && (
         <Typography
