@@ -5,8 +5,8 @@ import Typography from "@/components/reusable/typography/Typography";
 interface InstructorType {
   _id: string;
   fullname: string;
-  //   headline: string;
-  //   about: string;
+  headline: string;
+  bio: string;
 }
 
 interface InstructorSectionProps {
@@ -33,14 +33,12 @@ const InstructorSection: FC<InstructorSectionProps> = ({ instructor }) => {
               {instructor?.fullname}
             </Typography>
             <Typography variant="body_small" color="text">
-              Designer at Webflow
+              {instructor?.headline}
             </Typography>
           </div>
         </div>
-        <Typography variant="body_main" color="text">
-          Congratulations! My name is Vladyslav, and I will tell and show you
-          how to use Webflow. It&lsquo;s a cool tool for building fast and
-          easy-to-scalable websites.
+        <Typography variant="body_main" color="text" className="line-clamp-3">
+          {instructor?.bio}
         </Typography>
       </div>
     </div>

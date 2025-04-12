@@ -11,11 +11,6 @@ export const categories: Categories[] = [
     query: "design",
   },
   {
-    title: "Programming",
-    type: "warning",
-    query: "programming",
-  },
-  {
     title: "Social Sciences",
     type: "info",
     query: "social_sciences",
@@ -26,14 +21,19 @@ export const categories: Categories[] = [
     query: "sport",
   },
   {
+    title: "Medicine",
+    type: "success",
+    query: "medicine",
+  },
+  {
     title: "Language Learning",
     type: "error",
     query: "language_learning",
   },
   {
-    title: "Medicine",
-    type: "success",
-    query: "medicine",
+    title: "Programming",
+    type: "warning",
+    query: "programming",
   },
   {
     title: "Data Science",

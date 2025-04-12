@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { connectDB() } from "@/utils/connectDB()";
+import { connectDB } from "@/utils/connectDB";
 import Course from "@/models/Course";
 
 interface Params {
@@ -15,7 +15,7 @@ export async function GET(req: Request, { params }: Params) {
   try {
     const course = await Course.findById(courseId)
       .select("-__v")
-      .populate("instructor", "fullname");
+      .populate("instructor", "fullname bio headline");
 
     if (!course) {
       return NextResponse.json({ error: "Course not found" }, { status: 404 });

@@ -47,7 +47,10 @@ export async function PATCH(req: Request) {
       { new: true },
     ).select("-password -_id -__v");
 
-    return NextResponse.json(user, { status: 200 });
+    return NextResponse.json(
+      { data: user, message: "Changes applied successfully" },
+      { status: 200 },
+    );
   } catch (error) {
     console.log("Profile update error:", error);
     return NextResponse.json(

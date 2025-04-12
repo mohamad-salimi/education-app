@@ -6,7 +6,7 @@ const InstructorButton = () => {
   return (
     <Link
       href={"/add-course/intro"}
-      className="relative flex w-full items-center justify-between overflow-hidden rounded bg-gradient-to-l from-[#8f94fb] to-primary p-5"
+      className="relative flex w-full items-center justify-between overflow-hidden rounded-lg bg-gradient-to-l from-[#8f94fb] to-primary p-5"
     >
       <span className="text-2xl text-white">Be a Mentor</span>
       <MdArrowOutward size={28} color="white" />

@@ -39,7 +39,7 @@ const InputField: FC<InputFieldProps> = ({
           type={isVisible ? "text" : type}
           disabled={disabled}
           id={id}
-          className={`h-12 w-full rounded-lg border p-2 outline-none placeholder:text-sm hover:border-primary focus:border-primary focus:bg-background ${error ? "border-red-500" : "border-secondary"}`}
+          className={`h-12 w-full rounded-lg border p-2 outline-none placeholder:text-sm hover:border-primary focus:border-primary focus:bg-background ${error ? "border-red-500" : "border-secondary"} disabled:pointer-events-none disabled:select-none disabled:text-text disabled:hover:border-secondary disabled:focus:border-secondary`}
           placeholder={placeholder}
           {...rest}
         />

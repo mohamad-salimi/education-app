@@ -2,13 +2,13 @@ import React, { FC, InputHTMLAttributes } from "react";
 import Typography from "../typography/Typography";
 import { GoInfo } from "react-icons/go";
 
-interface TextAreaProps extends InputHTMLAttributes<HTMLInputElement> {
+interface TextAreaProps extends InputHTMLAttributes<HTMLTextAreaElement> {
   label?: string;
   id?: string;
   placeholder?: string;
   error?: boolean;
   description?: string;
-  onChange?: VoidFunction;
+  onChange?: React.ChangeEventHandler<HTMLTextAreaElement>;
 }
 
 const TextArea: FC<TextAreaProps> = ({
@@ -18,6 +18,7 @@ const TextArea: FC<TextAreaProps> = ({
   error,
   description,
   onChange,
+  ...rest
 }) => {
   return (
     <div className="flex flex-col gap-1.5">
@@ -27,11 +28,12 @@ const TextArea: FC<TextAreaProps> = ({
         </label>
       )}
       <textarea
+        {...rest}
         rows={5}
         id={id}
         onChange={onChange}
         placeholder={placeholder}
-        className={`min-h-unset block h-auto w-full appearance-none rounded-lg border ${error ? "border-red-500" : "border-secondary"} bg-white bg-clip-padding px-3 py-2 text-primary_text outline-none transition-all ease-in-out placeholder:text-sm placeholder:text-text hover:border-primary focus:border-primary focus:bg-background focus:outline-none`}
+        className={`min-h-unset block h-auto w-full appearance-none rounded-xl border ${error ? "border-red-500" : "border-secondary"} bg-white bg-clip-padding px-3 py-2 text-primary_text outline-none transition-all ease-in-out placeholder:text-sm placeholder:text-text hover:border-primary focus:border-primary focus:bg-background focus:outline-none`}
       ></textarea>
       {(error || description) && (
         <Typography
