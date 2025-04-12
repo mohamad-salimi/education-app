@@ -1,12 +1,19 @@
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-const mongoURI = process.env.MONGO_URI;
+const mongoURI = process.env.MONGO_URI as string;
 
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
-
-export const connectDB = mongoose.connection;
-connectDB.on("error", console.error.bind(console, "Connection failed"));
-connectDB.once("open", () => {
-  console.log("Connected to DB");
-});
+export const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(mongoURI);
+    console.log(`✅ MongoDB connected: ${conn.connection.host}`);
+  } catch (err: unknown) {
+    if (err instanceof Error) {
+      console.error(`❌ MongoDB connection error: ${err.message}`);
+    } else {
+      console.error(
+        "❌ An unknown error occurred while connecting to MongoDB.",
+      );
+    }
+    process.exit(1);
+  }
+};

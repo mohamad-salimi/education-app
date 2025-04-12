@@ -7,7 +7,7 @@ import Course from "@/models/Course";
 import User from "@/models/User";
 
 export async function GET() {
-  await connectDB;
+  await connectDB();
   try {
     const Courses = await Course.find()
       .select("-__v")
@@ -24,7 +24,7 @@ export async function GET() {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function POST(req: any) {
-  await connectDB;
+  await connectDB();
 
   const body = await req.json();
   const { name, category, language, level, skills, price, description } = body;

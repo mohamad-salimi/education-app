@@ -9,7 +9,7 @@ type InstructorFilter = {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function POST(req: any) {
-  await connectDB;
+  await connectDB();
 
   const body = await req.json();
   try {
@@ -48,7 +48,7 @@ export async function POST(req: any) {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function GET(req: any) {
-  await connectDB;
+  await connectDB();
 
   try {
     const { searchParams } = new URL(req.url);

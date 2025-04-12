@@ -6,7 +6,7 @@ import User from "@/models/User";
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function POST(req: any) {
   try {
-    await connectDB;
+    await connectDB();
 
     const { fullname, email, password } = await req.json();
 

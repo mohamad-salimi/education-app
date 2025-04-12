@@ -12,8 +12,8 @@ interface CoursesProps {
 const Courses: FC<CoursesProps> = ({ data }) => {
   return (
     <>
-      <div className="flex flex-col gap-y-4 p-5">
-        <div className="sticky top-0 z-[100] bg-white">
+      <div className="mb-16 flex flex-col gap-y-4 px-5">
+        <div className="sticky top-0 z-[100] bg-white py-3 shadow-sm">
           <SearchInput placeholder="Search for a course" />
         </div>
         {data?.map((course) => (

@@ -6,7 +6,7 @@ import User from "@/models/User";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(req: Request) {
-  await connectDB;
+  await connectDB();
 
   const session = await getServerSession(authOption);
   if (!session || !session.user) {
@@ -25,7 +25,7 @@ export async function GET(req: Request) {
 }
 
 export async function PATCH(req: Request) {
-  await connectDB;
+  await connectDB();
 
   const session = await getServerSession(authOption);
   if (!session || !session.user) {

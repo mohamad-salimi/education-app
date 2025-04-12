@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { connectDB } from "@/utils/connectDB";
+import { connectDB() } from "@/utils/connectDB()";
 import Course from "@/models/Course";
 
 interface Params {
@@ -9,7 +9,7 @@ interface Params {
 }
 
 export async function GET(req: Request, { params }: Params) {
-  await connectDB;
+  await connectDB();
   const { courseId } = await params;
 
   try {

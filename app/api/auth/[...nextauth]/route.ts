@@ -23,7 +23,7 @@ export const authOption: AuthOptions = {
         const { email, password } = credentials;
 
         try {
-          await connectDB;
+          await connectDB();
         } catch (err) {
           console.log("Database connection error:", err);
           throw new Error("An Error Occurred In Server");
