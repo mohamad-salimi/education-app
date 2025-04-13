@@ -8,11 +8,11 @@ type CourseCardProps = {
   type: "horizontal" | "vertical";
   id: string;
   thumbnail: string | StaticImageData;
-  field: string;
+  category: string;
   name: string;
   rate: number;
   reviewsCount: number;
-  price?: number;
+  price: number;
   isFree?: boolean;
 };
 
@@ -20,7 +20,7 @@ const CourseCard: FC<CourseCardProps> = ({
   type,
   id,
   name,
-  field,
+  category,
   price,
   rate,
   reviewsCount,
@@ -42,7 +42,7 @@ const CourseCard: FC<CourseCardProps> = ({
         className={`flex flex-col ${type === "horizontal" ? "flex-1 gap-y-2 overflow-hidden text-ellipsis whitespace-nowrap" : "gap-y-1.5"}`}
       >
         <Typography variant="body_small" className="capitalize" color="text">
-          {field}
+          {category}
         </Typography>
         <Typography
           variant="body_big"

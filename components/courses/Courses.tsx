@@ -23,7 +23,7 @@ const Courses: FC<CoursesProps> = ({ data }) => {
               key={course?._id}
               price={course?.price}
               name={course?.name}
-              field={course?.category}
+              category={course?.category}
               rate={course?.rate}
               id={course?._id}
               reviewsCount={course?.review_count}

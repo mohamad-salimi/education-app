@@ -1,62 +1,23 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { StaticImageData } from "next/image";
 import Typography from "@/components/reusable/typography/Typography";
 import CourseCard from "@/components/reusable/courseCard/CourseCard";
 import courseThumbnail from "@/public/placeholder/course-placeholder.png";
-
-type CoursesType = {
-  id: string;
-  thumbnail: string | StaticImageData;
-  field: string;
-  name: string;
-  rate: number;
-  reviewsCount: number;
-  price?: number;
-  isFree?: boolean;
-};
-
-const courses: CoursesType[] = [
-  {
-    id: "1",
-    name: "Figma course",
-    field: "Design",
-    price: 150,
-    rate: 5,
-    reviewsCount: 98,
-    thumbnail: courseThumbnail,
-  },
-  {
-    id: "2",
-    name: "Data Science",
-    field: "Programing",
-    price: 139,
-    rate: 5,
-    reviewsCount: 114,
-    thumbnail: courseThumbnail,
-    isFree: true,
-  },
-  {
-    id: "3",
-    name: "Meta IOS Developer",
-    field: "Programing",
-    price: 199,
-    rate: 4.8,
-    reviewsCount: 398,
-    thumbnail: courseThumbnail,
-  },
-  {
-    id: "4",
-    name: "Adobe Photoshop",
-    field: "Design",
-    price: 174,
-    rate: 4.8,
-    reviewsCount: 354,
-    thumbnail: courseThumbnail,
-  },
-];
+import { CourseType } from "../types/Home.types";
 
 const TopRated = () => {
+  const [courses, setCourses] = useState<CourseType[]>([]);
+
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const res = await fetch("/api/course?page=1&limit=4");
+      const courses = await res.json();
+      setCourses(courses?.data);
+    };
+
+    fetchCourses();
+  }, []);
   return (
     <div className="mt-8 flex flex-col gap-y-6 px-5">
       <div className="flex items-center justify-between">
@@ -68,16 +29,16 @@ const TopRated = () => {
       <div className="flex flex-wrap gap-4">
         {courses.map((course) => (
           <CourseCard
-            key={course.id}
+            key={course._id}
             type="vertical"
-            id={course.id}
+            id={course._id}
             name={course.name}
-            field={course.field}
+            category={course.category}
             price={course.price}
             rate={course.rate}
-            reviewsCount={course.reviewsCount}
-            thumbnail={course.thumbnail}
-            isFree={course.isFree}
+            reviewsCount={course.review_count}
+            thumbnail={courseThumbnail}
+            isFree={course.price === 0}
           />
         ))}
       </div>

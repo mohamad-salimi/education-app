@@ -6,17 +6,41 @@ import { Types } from "mongoose";
 import Course from "@/models/Course";
 import User from "@/models/User";
 
-export async function GET() {
+export async function GET(req: Request) {
   await connectDB();
+
+  const { searchParams } = await new URL(req.url);
+
+  const page = parseInt(searchParams.get("page") || "1");
+  const limit = parseInt(searchParams.get("limit") || "10");
+  const skip = (page - 1) * limit;
+
   try {
-    const Courses = await Course.find()
-      .select("-__v")
-      .populate("instructor", "fullname");
-    return NextResponse.json({ data: Courses }, { status: 200 });
-  } catch (err) {
-    console.log("Database connection error:", err);
+    const courses = await Course.find()
+      .select("-instructor name category price rate review_count")
+      .populate("instructor", "fullname")
+      .sort({ createdAt: -1 }) // sort
+      .skip(skip)
+      .limit(limit);
+
+    const totalCourses = await Course.countDocuments();
+    const totalPages = Math.ceil(totalCourses / limit);
+
     return NextResponse.json(
-      { error: "An Error Occurred In Server" },
+      {
+        data: courses,
+        pagination: {
+          totalCourses,
+          totalPages,
+          currentPage: page,
+        },
+      },
+      { status: 200 },
+    );
+  } catch (err) {
+    console.log("Database error:", err);
+    return NextResponse.json(
+      { error: "An error occurred on the server" },
       { status: 500 },
     );
   }
