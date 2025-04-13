@@ -7,14 +7,11 @@ import InstructorCard from "@/components/reusable/instructorCard/InstructorCard"
 
 type InstructorType = {
   _id: string;
-  __v: number;
-  name: string;
-  field_of_teaching: string;
+  fullname: string;
   headline: string;
-  courses_count: number;
-  rating: number;
-  student_count: number;
-  about: string;
+  course_count: number;
+  rating?: number;
+  student_count?: number;
 };
 
 const Instructors = () => {
@@ -24,7 +21,7 @@ const Instructors = () => {
     const fetchData = async () => {
       const res = await fetch("/api/instructors");
       const data = await res.json();
-      setInstructors(data.data);
+      setInstructors(data.instructors);
     };
 
     fetchData();
@@ -45,11 +42,11 @@ const Instructors = () => {
             <InstructorCard
               key={instructor._id}
               id={instructor._id}
-              name={instructor.name}
-              courseCount={instructor.courses_count}
+              name={instructor.fullname}
+              courseCount={instructor.course_count}
               headline={instructor.headline}
-              rating={instructor.rating}
-              studentCount={instructor.student_count}
+              rating={instructor.rating || 0}
+              studentCount={instructor.student_count || 0}
             />
           ))}
       </div>
