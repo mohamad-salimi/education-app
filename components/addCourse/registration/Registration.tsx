@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import InputField from "@/components/reusable/inputField/InputField";
 import SelectOption from "@/components/reusable/selectOption/SelectOption";
 import TextArea from "@/components/reusable/textArea/TextArea";
@@ -88,7 +88,6 @@ interface RegistrationFormInput {
 }
 
 const Registration = () => {
-  const [loading, setLoading] = useState<boolean>(false);
   const {
     control,
     handleSubmit,
@@ -96,7 +95,7 @@ const Registration = () => {
     setValue,
     getValues,
     watch,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<RegistrationFormInput>({
     defaultValues: {
       name: "",
@@ -131,14 +130,12 @@ const Registration = () => {
     const finalPayload = { ...payload };
     delete finalPayload.skillInput;
 
-    setLoading(true);
     const res = await fetch("/api/course", {
       method: "POST",
       body: JSON.stringify(finalPayload),
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
-    setLoading(false);
     if (data.error) {
       toast.error(data.error);
     } else {
@@ -344,7 +341,7 @@ const Registration = () => {
 
       <div className="sticky bottom-0 left-0 flex w-full items-center justify-center border-t border-t-secondary bg-white px-5 py-4 shadow-sm">
         <Button
-          disabled={loading}
+          disabled={isSubmitting}
           format="primary"
           type="submit"
           onClick={handleSubmit(onSubmit)}

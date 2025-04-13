@@ -1,71 +1,52 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/connectDB";
-import Instructor from "@/models/Instructor";
+import User from "@/models/User";
 
-type InstructorFilter = {
-  _id?: string;
-  field_of_teaching?: { $in: string[] };
-};
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function POST(req: any) {
-  await connectDB();
-
-  const body = await req.json();
-  try {
-    const {
-      name,
-      field_of_teaching,
-      headline,
-      courses_count,
-      rating,
-      student_count,
-      about,
-    } = body;
-
-    const instructor = await Instructor.create({
-      name,
-      field_of_teaching,
-      headline,
-      courses_count,
-      rating,
-      student_count,
-      about,
-    });
-
-    return NextResponse.json(
-      { message: "Instructor Created!", data: instructor },
-      { status: 201 },
-    );
-  } catch (err) {
-    console.log("Database connection error:", err);
-    return NextResponse.json(
-      { error: "An Error Occurred In Server" },
-      { status: 500 },
-    );
-  }
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function GET(req: any) {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export async function GET(req: Request) {
   await connectDB();
 
   try {
-    const { searchParams } = new URL(req.url);
+    const instructors = await User.aggregate([
+      { $match: { role: "INSTRUCTOR" } },
+      {
+        $lookup: {
+          from: "courses",
+          let: { instructorId: "$_id" },
+          pipeline: [
+            {
+              $match: {
+                $expr: { $eq: ["$instructor", "$$instructorId"] },
+              },
+            },
+            {
+              $count: "course_count",
+            },
+          ],
+          as: "course_stats",
+        },
+      },
+      {
+        $addFields: {
+          course_count: {
+            $cond: [
+              { $gt: [{ $size: "$course_stats" }, 0] },
+              { $arrayElemAt: ["$course_stats.course_count", 0] },
+              0,
+            ],
+          },
+        },
+      },
+      {
+        $project: {
+          fullname: 1,
+          headline: 1,
+          course_count: 1,
+        },
+      },
+    ]);
 
-    const id = searchParams.get("id");
-    const field_of_teaching = searchParams.get("field_of_teaching");
-
-    const filter: InstructorFilter = {};
-    if (id) filter._id = id;
-    if (field_of_teaching && field_of_teaching !== "undefined") {
-      const teachingFields = field_of_teaching.split(",");
-      filter.field_of_teaching = { $in: teachingFields };
-    }
-
-    const instructors = await Instructor.find(filter);
-
-    return NextResponse.json({ data: instructors }, { status: 200 });
+    return NextResponse.json({ instructors }, { status: 200 });
   } catch (err) {
     console.log("Database connection error:", err);
     return NextResponse.json(

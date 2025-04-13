@@ -9,21 +9,18 @@ import { CiFilter } from "react-icons/ci";
 
 type InstructorTypes = {
   _id: string;
-  __v: number;
-  name: string;
-  field_of_teaching: string;
+  fullname: string;
   headline: string;
-  courses_count: number;
-  rating: number;
-  student_count: number;
-  about: string;
+  course_count: number;
+  rating?: number;
+  student_count?: number;
 };
 
 type InstructorsProps = {
-  data: InstructorTypes[];
+  instructors: InstructorTypes[];
 };
 
-const Instructors: FC<InstructorsProps> = ({ data }) => {
+const Instructors: FC<InstructorsProps> = ({ instructors }) => {
   const [open, setOpen] = useState<boolean>(false);
   return (
     <>
@@ -37,15 +34,15 @@ const Instructors: FC<InstructorsProps> = ({ data }) => {
             <CiFilter size={24} color="inherit" />
           </button>
         </div>
-        {data?.map((instructor) => (
+        {instructors?.map((instructor) => (
           <InstructorCard
             key={instructor._id}
             id={instructor._id}
-            name={instructor.name}
+            name={instructor.fullname}
             headline={instructor.headline}
-            courseCount={instructor.courses_count}
-            rating={instructor.rating}
-            studentCount={instructor.student_count}
+            courseCount={instructor.course_count}
+            rating={instructor.rating || 0}
+            studentCount={instructor.student_count || 0}
           />
         ))}
       </div>

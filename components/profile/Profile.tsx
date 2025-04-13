@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 import InputField from "../reusable/inputField/InputField";
@@ -31,8 +31,6 @@ const genders = [
 ];
 
 const Profile: FC<ProfileProps> = ({ data }) => {
-  const [loading, setLoading] = useState<boolean>(false);
-
   const defaultValues: IProfile = {
     bio: data?.bio || "",
     gender: data?.gender || "",
@@ -42,27 +40,27 @@ const Profile: FC<ProfileProps> = ({ data }) => {
 
   const {
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     handleSubmit,
   } = useForm<ProfileType>({ defaultValues });
 
   const isStudent = data?.role === "STUDENT";
 
   const onSubmit: SubmitHandler<ProfileType> = async (payload) => {
-    setLoading(true);
     const res = await fetch("/api/profile", {
       method: "PATCH",
       body: JSON.stringify(payload),
       headers: { "Content-Type": "application/json" },
     });
     const data = await res.json();
-    setLoading(false);
     if (data.error) {
       toast.error(data.error);
     } else {
       toast.success(data.message);
     }
   };
+
+  console.log(isSubmitting);
 
   return (
     <div className="flex flex-col gap-y-3 px-5 pb-24 pt-4">
@@ -182,7 +180,7 @@ const Profile: FC<ProfileProps> = ({ data }) => {
             );
           }}
         />
-        <Button format="tonal" type="submit" disabled={loading}>
+        <Button format="tonal" type="submit" disabled={isSubmitting}>
           Submit Changes
         </Button>
       </form>
