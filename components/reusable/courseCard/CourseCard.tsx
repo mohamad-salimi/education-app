@@ -50,17 +50,26 @@ const CourseCard: FC<CourseCardProps> = ({
         >
           {name}
         </Typography>
-        <div className="flex items-center gap-x-1 text-yellow-400">
-          <Typography
-            variant="body_smallest"
-            color="primary_text"
-          >{`${rate}/5`}</Typography>
-          <FilledStarIcon />
-          <Typography variant="body_smallest" color="text">
-            {reviewsCount}
-            {type === "horizontal" && " reviews"}
-          </Typography>
-        </div>
+        {reviewsCount === 0 ? (
+          <div className="flex items-start gap-x-0.5 text-yellow-400">
+            <FilledStarIcon />
+            <Typography variant="body_small" color="text">
+              New
+            </Typography>
+          </div>
+        ) : (
+          <div className="flex items-center gap-x-1 text-yellow-400">
+            <Typography
+              variant="body_smallest"
+              color="primary_text"
+            >{`${rate}/5`}</Typography>
+            <FilledStarIcon />
+            <Typography variant="body_smallest" color="text">
+              {reviewsCount}
+              {type === "horizontal" && " reviews"}
+            </Typography>
+          </div>
+        )}
         {isFree && type === "horizontal" ? (
           <Typography
             variant="body_smallest"
@@ -70,7 +79,11 @@ const CourseCard: FC<CourseCardProps> = ({
             Free
           </Typography>
         ) : (
-          <Typography variant="body_small" color="primary">
+          <Typography
+            variant="body_small"
+            color="primary"
+            className="font-semibold"
+          >
             {isFree ? "Free" : `$${price}`}
           </Typography>
         )}

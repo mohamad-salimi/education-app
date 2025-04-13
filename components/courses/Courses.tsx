@@ -12,23 +12,25 @@ interface CoursesProps {
 const Courses: FC<CoursesProps> = ({ data }) => {
   return (
     <>
-      <div className="mb-16 flex flex-col gap-y-4 px-5">
-        <div className="sticky top-0 z-[100] bg-white py-3 shadow-sm">
+      <div className="mb-20 flex flex-col gap-y-4">
+        <div className="sticky top-0 z-[100] bg-white px-5 py-3">
           <SearchInput placeholder="Search for a course" />
         </div>
-        {data?.map((course) => (
-          <CourseCard
-            type="horizontal"
-            key={course?._id}
-            price={course?.price}
-            name={course?.name}
-            field={course?.category}
-            rate={course?.rate}
-            id={course?._id}
-            reviewsCount={course?.review_count}
-            thumbnail={coursePlaceholder}
-          />
-        ))}
+        <div className="flex flex-col gap-y-4 px-5">
+          {data?.map((course) => (
+            <CourseCard
+              type="horizontal"
+              key={course?._id}
+              price={course?.price}
+              name={course?.name}
+              field={course?.category}
+              rate={course?.rate}
+              id={course?._id}
+              reviewsCount={course?.review_count}
+              thumbnail={coursePlaceholder}
+            />
+          ))}
+        </div>
       </div>
       <BottomNavigation />
     </>
