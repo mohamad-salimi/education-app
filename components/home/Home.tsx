@@ -22,7 +22,7 @@ const Home: FC<HomeProps> = ({ categories, courses, instructors }) => {
           <SearchInput placeholder="Search for a course" />
         </div>
         <Categories categories={categories} />
-        <Suggestion />
+        <Suggestion courses={courses} />
         <TopRated courses={courses} />
         <Instructors instructors={instructors} />
         <FreeCourses courses={courses} />

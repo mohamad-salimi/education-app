@@ -7,7 +7,7 @@ import FilledStarIcon from "@/components/icons/filledStarIcon/FilledStarIcon";
 type SuggestionCardProps = {
   id: string;
   thumbnail: string | StaticImageData;
-  field: string;
+  category: string;
   name: string;
   rate: number;
   reviewsCount: number;
@@ -15,7 +15,7 @@ type SuggestionCardProps = {
 };
 
 const SuggestionCard: FC<SuggestionCardProps> = ({
-  field,
+  category,
   id,
   name,
   price,
@@ -36,20 +36,29 @@ const SuggestionCard: FC<SuggestionCardProps> = ({
         />
       </div>
       <div className="flex flex-col gap-y-2">
-        <Typography variant="body_small" color="text">
-          {field}
+        <Typography variant="body_small" color="text" className="capitalize">
+          {category}
         </Typography>
         <div className="flex items-center justify-between gap-x-1 text-yellow-400">
-          <div className="flex items-center gap-1.5">
-            <Typography
-              variant="body_smallest"
-              color="primary_text"
-            >{`${rate}/5`}</Typography>
-            <FilledStarIcon />
-            <Typography variant="body_smallest" color="text">
-              {reviewsCount}
-            </Typography>
-          </div>
+          {reviewsCount === 0 ? (
+            <div className="flex items-start gap-x-0.5 text-yellow-400">
+              <FilledStarIcon />
+              <Typography variant="body_small" color="text">
+                New
+              </Typography>
+            </div>
+          ) : (
+            <div className="flex items-center gap-x-1 text-yellow-400">
+              <Typography
+                variant="body_smallest"
+                color="primary_text"
+              >{`${rate}/5`}</Typography>
+              <FilledStarIcon />
+              <Typography variant="body_smallest" color="text">
+                {reviewsCount}
+              </Typography>
+            </div>
+          )}
           <Typography variant="body_small" color="primary">
             ${price}
           </Typography>
