@@ -6,18 +6,10 @@ import SearchInput from "../reusable/searchInput/SearchInput";
 import Drawer from "../reusable/drawer/Drawer";
 import InstructorFilter from "./instructorFilter/InstructorFilter";
 import { CiFilter } from "react-icons/ci";
-
-type InstructorTypes = {
-  _id: string;
-  fullname: string;
-  headline: string;
-  course_count: number;
-  rating?: number;
-  student_count?: number;
-};
+import { InstructorType } from "../instructor/types/Instructor.types";
 
 type InstructorsProps = {
-  instructors: InstructorTypes[];
+  instructors: InstructorType[];
 };
 
 const Instructors: FC<InstructorsProps> = ({ instructors }) => {
@@ -40,8 +32,8 @@ const Instructors: FC<InstructorsProps> = ({ instructors }) => {
             id={instructor._id}
             name={instructor.fullname}
             headline={instructor.headline}
-            courseCount={instructor.course_count}
-            rating={instructor.rating || 0}
+            courseCount={instructor.course_count as number}
+            rate={instructor.rate || 0}
             studentCount={instructor.student_count || 0}
           />
         ))}

@@ -13,9 +13,9 @@ export default function InstructorLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
+    <>
       <Header title="Instructors" />
       {children}
-    </div>
+    </>
   );
 }

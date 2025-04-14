@@ -10,7 +10,7 @@ type InstructorType = {
   fullname: string;
   headline: string;
   course_count: number;
-  rating?: number;
+  rate?: number;
   student_count?: number;
 };
 
@@ -45,7 +45,7 @@ const Instructors = () => {
               name={instructor.fullname}
               courseCount={instructor.course_count}
               headline={instructor.headline}
-              rating={instructor.rating || 0}
+              rate={instructor.rate || 0}
               studentCount={instructor.student_count || 0}
             />
           ))}

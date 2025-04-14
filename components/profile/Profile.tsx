@@ -60,8 +60,6 @@ const Profile: FC<ProfileProps> = ({ data }) => {
     }
   };
 
-  console.log(isSubmitting);
-
   return (
     <div className="flex flex-col gap-y-3 px-5 pb-24 pt-4">
       {isStudent && (

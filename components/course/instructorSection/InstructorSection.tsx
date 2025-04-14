@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import Image from "next/image";
 import Typography from "@/components/reusable/typography/Typography";
+import Link from "next/link";
 
 interface InstructorType {
   _id: string;
@@ -18,7 +19,10 @@ const InstructorSection: FC<InstructorSectionProps> = ({ instructor }) => {
     <div className="flex flex-col gap-y-4 px-5">
       <Typography variant="h2">Created by</Typography>
       <div className="flex flex-col gap-y-[18px]">
-        <div className="flex items-center gap-x-3">
+        <Link
+          href={`/instructors/${instructor?._id}`}
+          className="flex items-center gap-x-3"
+        >
           <div className="flex">
             <Image
               alt="avatar"
@@ -36,7 +40,7 @@ const InstructorSection: FC<InstructorSectionProps> = ({ instructor }) => {
               {instructor?.headline}
             </Typography>
           </div>
-        </div>
+        </Link>
         <Typography variant="body_main" color="text" className="line-clamp-3">
           {instructor?.bio}
         </Typography>

@@ -13,7 +13,7 @@ type InstructorCardProps = {
   headline: string;
   studentCount: number;
   courseCount: number;
-  rating: number;
+  rate: number;
 };
 
 const InstructorCard: FC<InstructorCardProps> = ({
@@ -21,7 +21,7 @@ const InstructorCard: FC<InstructorCardProps> = ({
   name,
   headline,
   courseCount,
-  rating,
+  rate,
   studentCount,
 }) => {
   return (
@@ -72,7 +72,7 @@ const InstructorCard: FC<InstructorCardProps> = ({
             variant="body_smallest"
             color="primary_text"
             className="min-w-[65px]"
-          >{`${rating}/5 rating`}</Typography>
+          >{`${rate}/5 rating`}</Typography>
         </span>
       </div>
     </Link>
