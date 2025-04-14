@@ -6,10 +6,10 @@ import coursePlaceholder from "@/public/placeholder/free-course-placeholder.png"
 import { CourseType } from "./types/Course.types";
 
 interface CoursesProps {
-  data: CourseType[];
+  courses: CourseType[];
 }
 
-const Courses: FC<CoursesProps> = ({ data }) => {
+const Courses: FC<CoursesProps> = ({ courses }) => {
   return (
     <>
       <div className="mb-20 flex flex-col gap-y-4">
@@ -17,7 +17,7 @@ const Courses: FC<CoursesProps> = ({ data }) => {
           <SearchInput placeholder="Search for a course" />
         </div>
         <div className="flex flex-col gap-y-4 px-5">
-          {data?.map((course) => (
+          {courses?.map((course) => (
             <CourseCard
               type="horizontal"
               key={course?._id}

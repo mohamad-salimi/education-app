@@ -1,12 +1,16 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import Link from "next/link";
 import Typography from "@/components/reusable/typography/Typography";
 import Badge from "@/components/reusable/badge/Badge";
-import { categories } from "../constants/categories";
+import { CategoriesType } from "../types/Home.types";
 
-const Categories = () => {
+interface CategoriesProps {
+  categories: CategoriesType[];
+}
+
+const Categories: FC<CategoriesProps> = ({ categories }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpand = () => setIsExpanded((prev) => !prev);
@@ -32,7 +36,7 @@ const Categories = () => {
         }}
       >
         {categories.map((badge) => (
-          <Link href={`/${badge.query}`} key={badge.query}>
+          <Link href={`/courses?${badge.query}`} key={badge.query}>
             <Badge format={badge.type} title={badge.title} />
           </Link>
         ))}
