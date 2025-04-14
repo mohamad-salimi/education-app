@@ -19,7 +19,7 @@ const Instructors = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("/api/instructors");
+      const res = await fetch("/api/instructors?page=1&limit=3");
       const data = await res.json();
       setInstructors(data.instructors);
     };

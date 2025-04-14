@@ -2,11 +2,17 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/utils/connectDB";
 import User from "@/models/User";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(req: Request) {
   await connectDB();
 
+  const { searchParams } = new URL(req.url);
+  const page = parseInt(searchParams.get("page") || "1");
+  const limit = parseInt(searchParams.get("limit") || "10");
+  const skip = (page - 1) * limit;
+
   try {
+    const totalCount = await User.countDocuments({ role: "INSTRUCTOR" });
+
     const instructors = await User.aggregate([
       { $match: { role: "INSTRUCTOR" } },
       {
@@ -42,11 +48,25 @@ export async function GET(req: Request) {
           fullname: 1,
           headline: 1,
           course_count: 1,
+          createdAt: 1,
         },
       },
+      { $sort: { createdAt: -1 } },
+      { $skip: skip },
+      { $limit: limit },
     ]);
 
-    return NextResponse.json({ instructors }, { status: 200 });
+    return NextResponse.json(
+      {
+        instructors,
+        pagination: {
+          currentPage: page,
+          totalPages: Math.ceil(totalCount / limit),
+          totalCount,
+        },
+      },
+      { status: 200 },
+    );
   } catch (err) {
     console.log("Database connection error:", err);
     return NextResponse.json(
