@@ -3,36 +3,25 @@
 import React, { useState } from "react";
 import Drawer from "@/components/reusable/drawer/Drawer";
 import SearchInput from "@/components/reusable/searchInput/SearchInput";
-import InstructorFilter from "@/components/instructors/instructorFilter/InstructorFilter";
-import SortIcon from "@/components/icons/sortIcon/SortIcon";
+import CourseFilter from "./courseFilter/CourseFilter";
 import { CiFilter } from "react-icons/ci";
 
 const CourseSeach = () => {
-  const [open, setOpen] = useState<"sort" | "filter" | null>(null);
+  const [open, setOpen] = useState<boolean>(false);
 
   return (
     <>
       <div className="sticky top-0 flex gap-x-4 bg-white px-5 py-3">
         <SearchInput placeholder="Search for a course" />
         <button
-          onClick={() => setOpen("filter")}
+          onClick={() => setOpen(true)}
           className="rounded-lg border border-secondary p-2 text-neutral-500 shadow-sm"
         >
           <CiFilter size={24} color="inherit" />
         </button>
-        <button
-          onClick={() => setOpen("sort")}
-          className="rounded-lg border border-secondary p-2 text-neutral-500 shadow-sm"
-        >
-          <SortIcon />
-        </button>
       </div>
-      <Drawer
-        open={!!open}
-        fullHeight={open === "filter"}
-        onClose={() => setOpen(null)}
-      >
-        <InstructorFilter onClose={() => setOpen(null)} />
+      <Drawer open={open} onClose={() => setOpen(false)} fullHeight>
+        <CourseFilter onClose={() => setOpen(false)} />
       </Drawer>
     </>
   );

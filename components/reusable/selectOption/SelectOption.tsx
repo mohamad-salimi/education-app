@@ -88,7 +88,7 @@ const SelectOption: FC<SelectOptionProps> = ({
       )}
 
       <div
-        className={`absolute top-20 z-10 mt-1 w-full overflow-auto rounded-lg border border-secondary bg-white shadow-sm transition-all duration-300 ease-in-out ${isOpen ? "max-h-60 opacity-100" : "max-h-0 opacity-0"}`}
+        className={`absolute top-20 z-[21] mt-1 w-full overflow-auto rounded-lg border border-secondary bg-white shadow-sm transition-all duration-300 ease-in-out ${isOpen ? "max-h-60 opacity-100" : "max-h-0 opacity-0"}`}
       >
         {options.map((option, index) => (
           <div
