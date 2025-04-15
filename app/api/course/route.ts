@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
+import { PipelineStage } from "mongoose";
 import { authOption } from "../auth/[...nextauth]/route";
 import { connectDB } from "@/utils/connectDB";
 import { Types } from "mongoose";
@@ -15,15 +16,97 @@ export async function GET(req: Request) {
   const limit = parseInt(searchParams.get("limit") || "10");
   const skip = (page - 1) * limit;
 
-  try {
-    const courses = await Course.find()
-      .select("-instructor name category price rate review_count")
-      .populate("instructor", "fullname")
-      .sort({ createdAt: -1 }) // sort
-      .skip(skip)
-      .limit(limit);
+  const search = searchParams.get("search") || "";
+  const category = searchParams.get("category");
+  const language = searchParams.get("language");
+  const level = searchParams.get("level");
+  const sort = searchParams.get("sort") || "newest";
 
-    const totalCourses = await Course.countDocuments();
+  const minPrice = parseFloat(searchParams.get("minPrice") || "0");
+  const maxPrice = parseFloat(searchParams.get("maxPrice") || "1000000");
+
+  const query: Record<string, unknown> = {
+    price: { $gte: minPrice, $lte: maxPrice },
+  };
+
+  if (category) query.category = category;
+  if (language) query.language = language;
+
+  const validLevels = ["beginner", "intermediate", "advanced"] as const;
+  if (level && validLevels.includes(level as (typeof validLevels)[number])) {
+    query.level = level;
+  }
+
+  const sortOptions: Record<string, 1 | -1> = {};
+  switch (sort) {
+    case "cheapest":
+      sortOptions.price = 1;
+      break;
+    case "mostExpensive":
+      sortOptions.price = -1;
+      break;
+    case "highestRated":
+      sortOptions.rate = -1;
+      break;
+    default:
+      sortOptions.createdAt = -1;
+  }
+
+  try {
+    const matchStage: PipelineStage.Match = {
+      $match: {
+        ...query,
+        ...(search && {
+          $or: [
+            { name: { $regex: search, $options: "i" } },
+            { "instructor.fullname": { $regex: search, $options: "i" } },
+          ],
+        }),
+      },
+    };
+
+    const basePipeline: PipelineStage[] = [
+      {
+        $lookup: {
+          from: "users",
+          localField: "instructor",
+          foreignField: "_id",
+          as: "instructor",
+        },
+      },
+      { $unwind: "$instructor" },
+      matchStage,
+    ];
+
+    const courses = await Course.aggregate([
+      ...basePipeline,
+      {
+        $project: {
+          name: 1,
+          category: 1,
+          language: 1,
+          level: 1,
+          price: 1,
+          rate: 1,
+          review_count: 1,
+          createdAt: 1,
+          instructor: {
+            _id: "$instructor._id",
+            fullname: "$instructor.fullname",
+          },
+        },
+      },
+      { $sort: sortOptions },
+      { $skip: skip },
+      { $limit: limit },
+    ]);
+
+    const totalCoursesAgg = await Course.aggregate([
+      ...basePipeline,
+      { $count: "total" },
+    ]);
+
+    const totalCourses = totalCoursesAgg[0]?.total || 0;
     const totalPages = Math.ceil(totalCourses / limit);
 
     return NextResponse.json(

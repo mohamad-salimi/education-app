@@ -1,9 +1,10 @@
 import React, { FC } from "react";
 import BottomNavigation from "../layout/bottomNavigation/BottomNavigation";
 import CourseCard from "../reusable/courseCard/CourseCard";
-import SearchInput from "../reusable/searchInput/SearchInput";
+
 import coursePlaceholder from "@/public/placeholder/free-course-placeholder.png";
 import { CourseType } from "./types/Course.types";
+import CourseSeach from "./courseSeach/CourseSeach";
 
 interface CoursesProps {
   courses: CourseType[];
@@ -13,9 +14,7 @@ const Courses: FC<CoursesProps> = ({ courses }) => {
   return (
     <>
       <div className="mb-20 flex flex-col gap-y-4">
-        <div className="sticky top-0 z-[100] bg-white px-5 py-3">
-          <SearchInput placeholder="Search for a course" />
-        </div>
+        <CourseSeach />
         <div className="flex flex-col gap-y-4 px-5">
           {courses?.map((course) => (
             <CourseCard
