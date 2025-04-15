@@ -1,10 +1,10 @@
 "use client";
 
-import SortIcon from "@/components/icons/sortIcon/SortIcon";
-import InstructorFilter from "@/components/instructors/instructorFilter/InstructorFilter";
+import React, { useState } from "react";
 import Drawer from "@/components/reusable/drawer/Drawer";
 import SearchInput from "@/components/reusable/searchInput/SearchInput";
-import React, { useState } from "react";
+import InstructorFilter from "@/components/instructors/instructorFilter/InstructorFilter";
+import SortIcon from "@/components/icons/sortIcon/SortIcon";
 import { CiFilter } from "react-icons/ci";
 
 const CourseSeach = () => {
@@ -27,7 +27,11 @@ const CourseSeach = () => {
           <SortIcon />
         </button>
       </div>
-      <Drawer open={!!open} onClose={() => setOpen(null)}>
+      <Drawer
+        open={!!open}
+        fullHeight={open === "filter"}
+        onClose={() => setOpen(null)}
+      >
         <InstructorFilter onClose={() => setOpen(null)} />
       </Drawer>
     </>
