@@ -7,13 +7,13 @@ import CourseFilter from "../courseFilter/CourseFilter";
 import { CiFilter } from "react-icons/ci";
 import { useSearchParams } from "next/navigation";
 
-const CourseSeach = () => {
+const CourseSearch = () => {
   const searchParams = useSearchParams();
   const [open, setOpen] = useState<boolean>(false);
 
   return (
     <>
-      <div className="sticky top-0 flex gap-x-4 bg-white px-5 py-3">
+      <div className="sticky top-0 mt-2 flex gap-x-4 bg-white px-5 py-3">
         <SearchInput placeholder="Search for a course" />
         <button
           onClick={() => setOpen(true)}
@@ -34,4 +34,4 @@ const CourseSeach = () => {
   );
 };
 
-export default CourseSeach;
+export default CourseSearch;

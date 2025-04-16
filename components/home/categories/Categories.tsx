@@ -36,7 +36,7 @@ const Categories: FC<CategoriesProps> = ({ categories }) => {
         }}
       >
         {categories.map((badge) => (
-          <Link href={`/courses?${badge.query}`} key={badge.query}>
+          <Link href={`/courses?category=${badge.query}`} key={badge.query}>
             <Badge format={badge.type} title={badge.title} />
           </Link>
         ))}

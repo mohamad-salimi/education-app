@@ -74,7 +74,7 @@ const CourseCard: FC<CourseCardProps> = ({
           <Typography
             variant="body_smallest"
             color="primary"
-            className="w-fit rounded bg-secondary p-2"
+            className="w-fit rounded bg-secondary px-2 py-1"
           >
             Free
           </Typography>
