@@ -1,89 +1,16 @@
+"use client";
+
 import React, { FC } from "react";
 import Typography from "@/components/reusable/typography/Typography";
 import SelectOption from "@/components/reusable/selectOption/SelectOption";
 import InputField from "@/components/reusable/inputField/InputField";
 import Button from "@/components/reusable/button/Button";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-
-const categories = [
-  {
-    title: "Design",
-    value: "design",
-  },
-  {
-    title: "Programming",
-    value: "programming",
-  },
-  {
-    title: "Social Sciences",
-    value: "social_sciences",
-  },
-  {
-    title: "Sport",
-    value: "sport",
-  },
-  {
-    title: "Language Learning",
-    value: "language_learning",
-  },
-  {
-    title: "Medicine",
-    value: "medicine",
-  },
-  {
-    title: "Data Science",
-    value: "data_science",
-  },
-  {
-    title: "Psychology",
-    value: "psychology",
-  },
-];
-
-const languages = [
-  {
-    title: "English",
-    value: "english",
-  },
-  {
-    title: "Persian",
-    value: "persian",
-  },
-];
-
-const sorts = [
-  {
-    title: "Highest Rate",
-    value: "highestRated",
-  },
-  {
-    title: "Most Expensive",
-    value: "mostExpensive",
-  },
-  {
-    title: "Cheapest",
-    value: "cheapest",
-  },
-  {
-    title: "Newest",
-    value: "newest",
-  },
-];
-
-const levels = [
-  {
-    title: "Beginner",
-    value: "beginner",
-  },
-  {
-    title: "Intermediate",
-    value: "intermediate",
-  },
-  {
-    title: "Advanced",
-    value: "advanced",
-  },
-];
+import { useRouter, useSearchParams } from "next/navigation";
+import { sorts } from "constants/Sorts";
+import { categories } from "constants/Categories";
+import { languages } from "constants/Languages";
+import { levels } from "constants/Levels";
 
 interface CourseFilterProps {
   onClose: VoidFunction;
@@ -99,28 +26,59 @@ interface CourseFilterFormInput {
 }
 
 const CourseFilter: FC<CourseFilterProps> = ({ onClose }) => {
+  const searchParams = useSearchParams();
+
+  const defaultValues = {
+    sort: searchParams.get("sort") || "",
+    category: searchParams.get("category") || "",
+    language: searchParams.get("language") || "",
+    level: searchParams.get("level") || "",
+    minPrice: searchParams.get("minPrice") || "",
+    maxPrice: searchParams.get("maxPrice") || "",
+  };
+  const router = useRouter();
   const {
     control,
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<CourseFilterFormInput>({
-    defaultValues: {
-      sort: "",
-      category: "",
-      language: "",
-      level: "",
-      minPrice: "",
-      maxPrice: "",
-    },
+    defaultValues,
   });
 
   const onSubmit: SubmitHandler<CourseFilterFormInput> = async (payload) => {
-    console.log(payload);
+    const newQuery = new URLSearchParams(searchParams.toString());
+
+    Object.entries(payload).forEach(([key, value]) => {
+      if (value) {
+        newQuery.set(key, value);
+      } else {
+        newQuery.delete(key);
+      }
+    });
+
+    router.push(`/courses?${newQuery.toString()}`);
+    onClose();
+  };
+
+  const handleReset = () => {
+    router.replace("/courses");
+    onClose();
   };
 
   return (
     <div className="flex h-full flex-col gap-y-6 px-5 py-4">
-      <Typography variant="h2">Filter</Typography>
+      <div className="flex items-center justify-between">
+        <Typography variant="h2">Filter</Typography>
+        {searchParams.size > 0 && (
+          <Typography
+            variant="body_small"
+            onClick={handleReset}
+            className="flex cursor-pointer items-center gap-x-1 rounded-lg border border-secondary px-2 py-1.5"
+          >
+            Reset Filters
+          </Typography>
+        )}
+      </div>
       <form
         className="flex flex-1 flex-col gap-y-5"
         onSubmit={handleSubmit(onSubmit)}

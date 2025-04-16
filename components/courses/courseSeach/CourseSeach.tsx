@@ -3,10 +3,12 @@
 import React, { useState } from "react";
 import Drawer from "@/components/reusable/drawer/Drawer";
 import SearchInput from "@/components/reusable/searchInput/SearchInput";
-import CourseFilter from "./courseFilter/CourseFilter";
+import CourseFilter from "../courseFilter/CourseFilter";
 import { CiFilter } from "react-icons/ci";
+import { useSearchParams } from "next/navigation";
 
 const CourseSeach = () => {
+  const searchParams = useSearchParams();
   const [open, setOpen] = useState<boolean>(false);
 
   return (
@@ -19,6 +21,11 @@ const CourseSeach = () => {
         >
           <CiFilter size={24} color="inherit" />
         </button>
+        {searchParams?.size > 0 && (
+          <span className="absolute right-3 top-1 flex size-6 items-center justify-center rounded-full border border-indigo-400 bg-background text-sm text-indigo-400">
+            {searchParams?.size}
+          </span>
+        )}
       </div>
       <Drawer open={open} onClose={() => setOpen(false)} fullHeight>
         <CourseFilter onClose={() => setOpen(false)} />

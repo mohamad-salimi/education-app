@@ -1,10 +1,9 @@
 import React, { FC } from "react";
 import BottomNavigation from "../layout/bottomNavigation/BottomNavigation";
 import CourseCard from "../reusable/courseCard/CourseCard";
-
+import CourseSeach from "./courseSeach/CourseSeach";
 import coursePlaceholder from "@/public/placeholder/free-course-placeholder.png";
 import { CourseType } from "./types/Course.types";
-import CourseSeach from "./courseSeach/CourseSeach";
 
 interface CoursesProps {
   courses: CourseType[];

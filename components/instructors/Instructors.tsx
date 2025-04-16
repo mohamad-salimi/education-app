@@ -1,11 +1,8 @@
 "use client";
 
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import InstructorCard from "../reusable/instructorCard/InstructorCard";
 import SearchInput from "../reusable/searchInput/SearchInput";
-import Drawer from "../reusable/drawer/Drawer";
-import InstructorFilter from "./instructorFilter/InstructorFilter";
-import { CiFilter } from "react-icons/ci";
 import { InstructorType } from "../instructor/types/Instructor.types";
 
 type InstructorsProps = {
@@ -13,19 +10,10 @@ type InstructorsProps = {
 };
 
 const Instructors: FC<InstructorsProps> = ({ instructors }) => {
-  const [open, setOpen] = useState<boolean>(false);
   return (
     <>
       <div className="flex flex-col gap-y-6 px-5 pb-20 pt-4">
-        <div className="flex gap-x-4">
-          <SearchInput placeholder="Search instructor name" />
-          <button
-            onClick={() => setOpen(true)}
-            className="rounded-lg border border-secondary p-2 text-neutral-500 shadow-sm"
-          >
-            <CiFilter size={24} color="inherit" />
-          </button>
-        </div>
+        <SearchInput placeholder="Search instructor name" />
         {instructors?.map((instructor) => (
           <InstructorCard
             key={instructor._id}
@@ -38,10 +26,6 @@ const Instructors: FC<InstructorsProps> = ({ instructors }) => {
           />
         ))}
       </div>
-
-      <Drawer open={open} onClose={() => setOpen(false)}>
-        <InstructorFilter onClose={() => setOpen(false)} />
-      </Drawer>
     </>
   );
 };

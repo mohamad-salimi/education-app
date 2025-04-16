@@ -14,67 +14,9 @@ import {
 } from "react-hook-form";
 import { GoPlus } from "react-icons/go";
 import { IoIosClose } from "react-icons/io";
-
-const categories = [
-  {
-    title: "Design",
-    value: "design",
-  },
-  {
-    title: "Programming",
-    value: "programming",
-  },
-  {
-    title: "Social Sciences",
-    value: "social_sciences",
-  },
-  {
-    title: "Sport",
-    value: "sport",
-  },
-  {
-    title: "Language Learning",
-    value: "language_learning",
-  },
-  {
-    title: "Medicine",
-    value: "medicine",
-  },
-  {
-    title: "Data Science",
-    value: "data_science",
-  },
-  {
-    title: "Psychology",
-    value: "psychology",
-  },
-];
-
-const languages = [
-  {
-    title: "English",
-    value: "english",
-  },
-  {
-    title: "Persian",
-    value: "persian",
-  },
-];
-
-const levels = [
-  {
-    title: "Beginner",
-    value: "beginner",
-  },
-  {
-    title: "Intermediate",
-    value: "intermediate",
-  },
-  {
-    title: "Advanced",
-    value: "advanced",
-  },
-];
+import { categories } from "constants/Categories";
+import { languages } from "constants/Languages";
+import { levels } from "constants/Levels";
 
 interface RegistrationFormInput {
   name: string;
